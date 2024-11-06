@@ -36,14 +36,15 @@ def try_quotient():
         print("\nCreating new prompt...")
         prompt = quotient.prompts.create(
             name="Article Summary",
-            system_prompt=system_prompt_article_summary,
-            user_prompt=article_text,
+            user_prompt=system_prompt_article_summary,
         )
         print(f"Created new prompt with ID: {prompt.id}")
         print("Add this ID to your .env file as QUOTIENT_PROMPT_ID")
 
     # Get article summary using the prompt
-    summary = get_article_summary(article_text, prompt.system_prompt)
+    print(prompt)
+
+    summary = get_article_summary(article_text, prompt.user_prompt)
     print("\nSummary using Quotient prompt:", summary)
 
 
