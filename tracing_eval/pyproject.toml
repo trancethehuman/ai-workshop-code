@@ -1,0 +1,12 @@
+[project]
+name = "tracing-eval"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "langsmith>=0.1.139",
+    "openai>=1.54.1",
+    "python-dotenv>=1.0.1",
+    "quotientai>=0.1.1",
+]
