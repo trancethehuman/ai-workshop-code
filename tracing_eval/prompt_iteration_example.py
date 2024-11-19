@@ -41,7 +41,6 @@ def try_quotient():
         print(f"Created new prompt with ID: {prompt.id}")
         print("Add this ID to your .env file as QUOTIENT_PROMPT_ID")
 
-    # Get article summary using the prompt
     print(prompt)
 
     summary = get_article_summary(article_text, prompt.user_prompt)

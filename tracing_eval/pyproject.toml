@@ -9,4 +9,5 @@ dependencies = [
     "openai>=1.54.1",
     "python-dotenv>=1.0.1",
     "quotientai>=0.1.1",
+    "packaging",
 ]
