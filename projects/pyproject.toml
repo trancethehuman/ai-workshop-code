@@ -1,5 +1,5 @@
 [project]
-name = "tracing-eval"
+name = "projects"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -10,4 +10,8 @@ dependencies = [
     "python-dotenv>=1.0.1",
     "quotientai>=0.1.1",
     "packaging",
+    "tiktoken>=0.8.0",
+    "google-generativeai>=0.8.3",
+    "tavily-python>=0.5.0",
+    "exa-py>=1.6.0",
 ]
