@@ -46,9 +46,6 @@ def get_response_tavily(query: str) -> dict:
             },
         }
 
-        # Debug print
-        print(f"\nTavily Debug - Full response structure: {result_dict}")
-
         return result_dict
 
     except Exception as e:

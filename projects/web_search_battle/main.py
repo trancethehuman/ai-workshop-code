@@ -103,21 +103,7 @@ def run_evaluation():
                         f"Attempt {attempt + 1} failed for {provider}: {str(e)}. Retrying..."
                     )
 
-    # Aggregate and display results
-    print("\nEvaluation Results by Provider:")
-    for provider, results in all_results.items():
-        try:
-            scores = [r.get("score", 0) for r in results]
-            if scores:
-                avg_score = sum(scores) / len(scores)
-                print(
-                    f"{provider}: Average score = {avg_score:.2f} (from {len(scores)} examples)"
-                )
-            else:
-                print(f"{provider}: No valid scores found")
-        except Exception as e:
-            print(f"❌ Error calculating scores for {provider}: {str(e)}")
-
+    print("\nAll done.")
     return all_results
 
 

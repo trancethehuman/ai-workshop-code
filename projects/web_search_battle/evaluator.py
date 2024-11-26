@@ -28,9 +28,7 @@ def search_accuracy_evaluator(outputs: dict, reference_outputs: dict) -> dict:
     }
     
     Score the response based on these criteria:
-    - 1.0: Perfect match or equivalent meaning
-    - 0.7: Mostly correct with minor discrepancies
-    - 0.3: Partially correct but missing key information
+    - 1.0: Match or equivalent meaning
     - 0.0: Incorrect or contradictory
     
     Base your evaluation on accuracy and completeness of information.
@@ -44,7 +42,7 @@ def search_accuracy_evaluator(outputs: dict, reference_outputs: dict) -> dict:
             reference = reference_outputs.get("reference", "")
 
             completion = openai_client.beta.chat.completions.parse(
-                model="gpt-4o-mini",
+                model="gpt-4o",
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {

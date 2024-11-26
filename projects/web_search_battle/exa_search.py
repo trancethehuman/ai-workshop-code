@@ -58,7 +58,7 @@ Search Results:
 Please provide a direct answer based on these search results."""
 
             completion = openai_client.chat.completions.create(
-                model="gpt-4o-mini",
+                model="gpt-4o",
                 messages=[
                     {
                         "role": "system",
@@ -76,11 +76,8 @@ Please provide a direct answer based on these search results."""
         if not isinstance(answer, str):
             answer = str(answer)
 
-        # Debug print to verify output
-        print(f"\nExa Debug - Generated answer: {answer}")
-
         response_dict = {
-            "output": answer,  # Make sure this is a string
+            "output": answer,
             "model": "exa-neural",
             "grounded": True,
             "sources": sources,
@@ -91,9 +88,6 @@ Please provide a direct answer based on these search results."""
                 "summaries": summaries,
             },
         }
-
-        # Debug print to verify response structure
-        print(f"\nExa Debug - Response structure: {response_dict}")
 
         return response_dict
 
