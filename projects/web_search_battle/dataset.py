@@ -81,7 +81,9 @@ def create_evaluation_dataset(PROVIDERS):
         # Output contains both the provider's output and the reference answer
         outputs.append(
             {
+                "output": data["provider_output"],
                 "reference": data["reference_output"],
+                "input": data["query"],
             }
         )
         splits.append(data["provider"])

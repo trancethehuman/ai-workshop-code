@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from datetime import datetime
 from pydantic import BaseModel
+from langsmith.wrappers import wrap_openai
+
 
 load_dotenv()
 
@@ -12,6 +14,11 @@ load_dotenv()
 def setup_client():
     """Initialize and return the Exa client"""
     return Exa(os.getenv("EXA_API_KEY"))
+
+
+def setup_openai_client():
+    """Initialize and return the wrapped OpenAI client"""
+    return wrap_openai(OpenAI())
 
 
 def setup_gemini_client():
@@ -34,8 +41,8 @@ def format_date(date_str: str) -> str:
 @traceable(name="exa", tags=["search_battle"])
 def get_response_exa(query: str) -> dict:
     exa_client = setup_client()
-    gemini_client = setup_gemini_client()
-    model_name = "gemini-1.5-flash"
+    openai_client = setup_openai_client()
+    model_name = "gpt-4o-mini"
 
     try:
         # Get search results from Exa
@@ -82,7 +89,7 @@ Search Results:
 
 Please provide a direct answer based on these search results, prioritizing the most recent information when relevant."""
 
-            completion = gemini_client.chat.completions.create(
+            completion = openai_client.chat.completions.create(
                 model=model_name,
                 messages=[
                     {
