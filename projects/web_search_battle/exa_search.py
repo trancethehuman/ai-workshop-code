@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 from langsmith.wrappers import wrap_openai
+from datetime import datetime
 
 load_dotenv()
 
@@ -16,6 +17,15 @@ def setup_client():
 def setup_openai_client():
     """Initialize and return the wrapped OpenAI client"""
     return wrap_openai(OpenAI())
+
+
+def format_date(date_str: str) -> str:
+    """Format date string to be more readable"""
+    try:
+        date = datetime.fromisoformat(date_str.replace("Z", "+00:00"))
+        return date.strftime("%B %d, %Y")
+    except:
+        return date_str
 
 
 @traceable(name="exa", tags=["search_battle"])
@@ -34,9 +44,9 @@ def get_response_exa(query: str) -> dict:
             summary=True,
         )
 
-        # Collect sources and their summaries
+        # Collect sources and their summaries with dates
         sources = []
-        summaries = []
+        search_results = []
         for result in results.results:
             source = {
                 "title": result.title,
@@ -45,24 +55,38 @@ def get_response_exa(query: str) -> dict:
                 "author": result.author,
             }
             sources.append(source)
+
             if hasattr(result, "summary"):
-                summaries.append(result.summary)
+                formatted_date = (
+                    format_date(result.published_date)
+                    if result.published_date
+                    else "Date unknown"
+                )
+                search_results.append(
+                    {"summary": result.summary, "date": formatted_date}
+                )
 
         # If we have summaries, use OpenAI to generate a natural language answer
-        if summaries:
-            prompt = f"""Based on the following search results, provide a concise and accurate answer to the query: "{query}"
+        if search_results:
+            # Sort results by date, most recent first
+            search_results.sort(
+                key=lambda x: x["date"] if x["date"] != "Date unknown" else "",
+                reverse=True,
+            )
+
+            prompt = f"""Based on the following search results (sorted by date), provide a concise and accurate answer to the query: "{query}"
 
 Search Results:
-{chr(10).join(f'- {summary}' for summary in summaries)}
+{chr(10).join(f'[{result["date"]}] - {result["summary"]}' for result in search_results)}
 
-Please provide a direct answer based on these search results."""
+Please provide a direct answer based on these search results, prioritizing the most recent information when relevant."""
 
             completion = openai_client.chat.completions.create(
                 model="gpt-4o",
                 messages=[
                     {
                         "role": "system",
-                        "content": "You are a helpful assistant that provides accurate, concise answers based on search results.",
+                        "content": "You are a helpful assistant that provides accurate, concise answers based on search results. When information conflicts, prefer more recent sources.",
                     },
                     {"role": "user", "content": prompt},
                 ],
@@ -85,7 +109,8 @@ Please provide a direct answer based on these search results."""
                 "request_id": results.request_id
                 if hasattr(results, "request_id")
                 else None,
-                "summaries": summaries,
+                "summaries": [r["summary"] for r in search_results],
+                "dates": [r["date"] for r in search_results],
             },
         }
 
@@ -116,9 +141,13 @@ if __name__ == "__main__":
     if result["sources"]:
         print("\nSources:")
         for source in result["sources"]:
-            print(f"- {source['title']} ({source['url']})")
+            print(
+                f"- {source['title']} ({source['url']}) - Published: {source['published_date']}"
+            )
 
     if result["grounding_info"].get("summaries"):
-        print("\nSource Summaries:")
-        for summary in result["grounding_info"]["summaries"]:
-            print(f"- {summary}")
+        print("\nSource Summaries with Dates:")
+        for summary, date in zip(
+            result["grounding_info"]["summaries"], result["grounding_info"]["dates"]
+        ):
+            print(f"[{date}] - {summary}")

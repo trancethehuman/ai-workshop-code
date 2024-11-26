@@ -1,11 +1,11 @@
 ground_truths = [
     {
         "input": "Who's the president of the United States in 2025",
-        "output": "Donald Trump",
+        "output": "Donald Trump will become president in January 2025",
     },
     {
         "input": "What is llms.txt?",
-        "output": "This is a markdown file that provides brief background information and guidance, along with links to markdown files (which can also link to external sites) providing more detailed information",
+        "output": "llms.txt is a markdown file that provides brief background information and guidance, along with links to markdown files (which can also link to external sites) providing more detailed information",
     },
     {
         "input": "Does Firecrawl support iframe?",
@@ -13,7 +13,7 @@ ground_truths = [
     },
     {
         "input": "Who won the fight between Jake Paul and Mike Tyson?",
-        "output": "Jake Paul",
+        "output": "Jake Paul won the fight",
     },
     {"input": "Who's the CTO of Vectorize.io?", "output": "Chris Bartholomew"},
     {"input": "Who's the CEO of Quotient AI?", "output": "Julia Neagu"},

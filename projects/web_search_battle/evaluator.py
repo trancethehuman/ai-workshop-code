@@ -42,7 +42,7 @@ def search_accuracy_evaluator(outputs: dict, reference_outputs: dict) -> dict:
             reference = reference_outputs.get("reference", "")
 
             completion = openai_client.beta.chat.completions.parse(
-                model="gpt-4o",
+                model="gpt-4o-mini",
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {
