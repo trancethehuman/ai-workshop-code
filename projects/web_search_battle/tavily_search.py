@@ -11,7 +11,7 @@ def setup_client():
     return TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
 
 
-@traceable(name="tavily")
+@traceable(name="tavily", tags=["search_battle"])
 def get_response_tavily(query: str) -> dict:
     client = setup_client()
 
@@ -21,16 +21,22 @@ def get_response_tavily(query: str) -> dict:
             query=query, search_depth="advanced", include_answer=True
         )
 
-        # Not sure what the difference is for basic / advanced search_depth, but the later costs double
-
         # Extract sources from results
         sources = [
             {"url": result["url"], "title": result["title"]}
             for result in response.get("results", [])
         ]
 
-        return {
-            "response": response.get("answer", "No answer provided"),
+        # Make sure we get a string response
+        answer = response.get("answer", "No answer provided")
+        if not isinstance(answer, str):
+            answer = str(answer)
+
+        # Debug print
+        print(f"\nTavily Debug - Raw answer: {answer}")
+
+        result_dict = {
+            "output": answer,
             "model": "tavily-search",
             "grounded": True,
             "sources": sources,
@@ -40,11 +46,16 @@ def get_response_tavily(query: str) -> dict:
             },
         }
 
+        # Debug print
+        print(f"\nTavily Debug - Full response structure: {result_dict}")
+
+        return result_dict
+
     except Exception as e:
         print(f"Debug - Exception type: {type(e)}")
         print(f"Debug - Full error: {str(e)}")
         return {
-            "response": f"Error getting Tavily response: {str(e)}",
+            "output": f"Error getting Tavily response: {str(e)}",
             "model": "tavily-search",
             "grounded": False,
             "sources": [],
@@ -58,7 +69,7 @@ if __name__ == "__main__":
     result = get_response_tavily(query)
 
     print(f"\nQuery: {query}")
-    print(f"Response: {result['response']}")
+    print(f"Response: {result['output']}")
     print(f"Model: {result['model']}")
     print(f"Grounded: {result['grounded']}")
 

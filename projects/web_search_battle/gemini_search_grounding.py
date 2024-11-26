@@ -15,7 +15,7 @@ def setup_model():
     return genai.GenerativeModel("models/gemini-1.5-flash")
 
 
-@traceable(name="grounding")
+@traceable(name="gemini", tags=["search_battle"])
 def get_response_google_grounding(
     query: str, dynamic_threshold: Optional[float] = None
 ) -> str:
@@ -65,7 +65,7 @@ def get_response_google_grounding(
                 grounding_info["supports"] = metadata.grounding_supports
 
         return {
-            "response": response.text,
+            "output": response.text,
             "grounded": len(sources) > 0,
             "sources": list(set(sources)),  # Remove duplicates
             "grounding_info": grounding_info,
@@ -75,7 +75,7 @@ def get_response_google_grounding(
         print(f"Debug - Exception type: {type(e)}")
         print(f"Debug - Full error: {str(e)}")
         return {
-            "response": f"Error getting grounded response: {str(e)}",
+            "output": f"Error getting grounded response: {str(e)}",
             "grounded": False,
             "sources": [],
             "grounding_info": {},
@@ -88,7 +88,7 @@ if __name__ == "__main__":
     result = get_response_google_grounding(query)
 
     print(f"\nQuery: {query}")
-    print(f"Response: {result['response']}")
+    print(f"Response: {result['output']}")
     print(f"Grounded: {result['grounded']}")
 
     if result["sources"]:

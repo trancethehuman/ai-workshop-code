@@ -16,7 +16,7 @@ def setup_client():
     )
 
 
-@traceable(name="perplexity")
+@traceable(name="perplexity", tags=["search_battle"])
 def get_response_perplexity(query: str) -> dict:
     client = setup_client()
 
@@ -34,11 +34,10 @@ def get_response_perplexity(query: str) -> dict:
             messages=messages,
         )
 
-        # Extract citations if they exist in the response
         citations = response.citations if hasattr(response, "citations") else []
 
         return {
-            "response": response.choices[0].message.content,
+            "output": response.choices[0].message.content,
             "model": model_name,
             "grounded": True,
             "sources": citations,
@@ -49,7 +48,7 @@ def get_response_perplexity(query: str) -> dict:
         print(f"Debug - Exception type: {type(e)}")
         print(f"Debug - Full error: {str(e)}")
         return {
-            "response": f"Error getting Perplexity response: {str(e)}",
+            "output": f"Error getting Perplexity response: {str(e)}",
             "model": model_name,
             "grounded": False,
             "sources": [],
@@ -63,7 +62,7 @@ if __name__ == "__main__":
     result = get_response_perplexity(query)
 
     print(f"\nQuery: {query}")
-    print(f"Response: {result['response']}")
+    print(f"Response: {result['output']}")
     print(f"Model: {result['model']}")
     print(f"Grounded: {result['grounded']}")
 
