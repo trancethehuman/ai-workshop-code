@@ -3,8 +3,8 @@ from langsmith import traceable
 import os
 from dotenv import load_dotenv
 from openai import OpenAI
-from langsmith.wrappers import wrap_openai
 from datetime import datetime
+from pydantic import BaseModel
 
 load_dotenv()
 
@@ -14,9 +14,12 @@ def setup_client():
     return Exa(os.getenv("EXA_API_KEY"))
 
 
-def setup_openai_client():
-    """Initialize and return the wrapped OpenAI client"""
-    return wrap_openai(OpenAI())
+def setup_gemini_client():
+    """Initialize and return the Gemini client"""
+    return OpenAI(
+        api_key=os.getenv("GEMINI_API_KEY"),
+        base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+    )
 
 
 def format_date(date_str: str) -> str:
@@ -31,7 +34,8 @@ def format_date(date_str: str) -> str:
 @traceable(name="exa", tags=["search_battle"])
 def get_response_exa(query: str) -> dict:
     exa_client = setup_client()
-    openai_client = setup_openai_client()
+    gemini_client = setup_gemini_client()
+    model_name = "gemini-1.5-flash"
 
     try:
         # Get search results from Exa
@@ -41,10 +45,9 @@ def get_response_exa(query: str) -> dict:
             use_autoprompt=True,
             num_results=5,
             text=True,
-            summary=True,
         )
 
-        # Collect sources and their summaries with dates
+        # Collect sources and their content with dates
         sources = []
         search_results = []
         for result in results.results:
@@ -56,17 +59,15 @@ def get_response_exa(query: str) -> dict:
             }
             sources.append(source)
 
-            if hasattr(result, "summary"):
+            if hasattr(result, "text"):
                 formatted_date = (
                     format_date(result.published_date)
                     if result.published_date
                     else "Date unknown"
                 )
-                search_results.append(
-                    {"summary": result.summary, "date": formatted_date}
-                )
+                search_results.append({"text": result.text, "date": formatted_date})
 
-        # If we have summaries, use OpenAI to generate a natural language answer
+        # If we have text content, use Gemini to generate a natural language answer
         if search_results:
             # Sort results by date, most recent first
             search_results.sort(
@@ -77,12 +78,12 @@ def get_response_exa(query: str) -> dict:
             prompt = f"""Based on the following search results (sorted by date), provide a concise and accurate answer to the query: "{query}"
 
 Search Results:
-{chr(10).join(f'[{result["date"]}] - {result["summary"]}' for result in search_results)}
+{chr(10).join(f'[{result["date"]}] - {result["text"]}' for result in search_results)}
 
 Please provide a direct answer based on these search results, prioritizing the most recent information when relevant."""
 
-            completion = openai_client.chat.completions.create(
-                model="gpt-4o",
+            completion = gemini_client.chat.completions.create(
+                model=model_name,
                 messages=[
                     {
                         "role": "system",
@@ -90,6 +91,9 @@ Please provide a direct answer based on these search results, prioritizing the m
                     },
                     {"role": "user", "content": prompt},
                 ],
+                temperature=0,
+                max_tokens=2048,
+                top_p=1,
             )
 
             answer = completion.choices[0].message.content
@@ -109,7 +113,7 @@ Please provide a direct answer based on these search results, prioritizing the m
                 "request_id": results.request_id
                 if hasattr(results, "request_id")
                 else None,
-                "summaries": [r["summary"] for r in search_results],
+                "content": [r["text"] for r in search_results],
                 "dates": [r["date"] for r in search_results],
             },
         }
@@ -130,7 +134,7 @@ Please provide a direct answer based on these search results, prioritizing the m
 
 if __name__ == "__main__":
     # Test query
-    query = "Who won the Jake Paul and Mike Tyson fight?"
+    query = "Who is the president of the US in 2025?"
     result = get_response_exa(query)
 
     print(f"\nQuery: {query}")
@@ -145,9 +149,9 @@ if __name__ == "__main__":
                 f"- {source['title']} ({source['url']}) - Published: {source['published_date']}"
             )
 
-    if result["grounding_info"].get("summaries"):
-        print("\nSource Summaries with Dates:")
-        for summary, date in zip(
-            result["grounding_info"]["summaries"], result["grounding_info"]["dates"]
+    if result["grounding_info"].get("content"):
+        print("\nSource Content with Dates:")
+        for content, date in zip(
+            result["grounding_info"]["content"], result["grounding_info"]["dates"]
         ):
-            print(f"[{date}] - {summary}")
+            print(f"[{date}] - {content[:200]}...")  # Print first 200 chars of content
