@@ -1,0 +1,60 @@
+
+Job Posting:
+-----------
+Title: Consumer Product Communications Lead
+Location: Hybrid (in-office at least 25% of the time)
+Skills: Consumer communications, Consumer technology, Culture/lifestyle communications, Strategic thinking, Writing, Storytelling, Media relations, Project management, Analytical skills, Collaborative leadership
+Experience: 10+ years in consumer and/or consumer product communications, with a strong focus on consumer technology or culture/lifestyle communications.
+Salary Range: $240,000—$300,000 USD
+Summary: Anthropic is seeking a dynamic and experienced Consumer Product Communications Lead to spearhead our consumer communications program. This role demands a blend of strategic vision and hands-on expertise to translate complex AI concepts into compelling narratives for everyday consumers.
+                    
+
+Job Posting:
+-----------
+Title: Corporate Communications Manager
+Location: San Francisco, hybrid (25% in-office required)
+Skills: Corporate communications, Financial communications, Media relations, Issues management, Fundraising, Partnerships, Excellent written and verbal communication, Cross-functional collaboration
+Experience: 10+ years in corporate or financial communications, ideally at a high-growth technology company or in a specialist PR agency.
+Salary Range: $240,000—$300,000 USD
+Summary: Anthropic seeks a highly skilled communicator to develop and drive effective communications campaigns that advance Anthropic's business. The role involves crafting compelling narratives and initiatives to articulate the company's value proposition and reinforce its position in AI development.
+                    
+
+Job Posting:
+-----------
+Title: ABM-focused Growth Marketer
+Location: Hybrid (expected to be in the office at least 25% of the time)
+Skills: B2B marketing, Account-based Marketing (ABM), Enterprise Demand Generation, Digital marketing strategies, LinkedIn Ads, Google Ads, CRM systems, Marketing automation platforms, Content marketing, Webinar production, Lifecycle marketing, Analytical skills
+Experience: 10+ years of B2B marketing experience, with at least 3 years in Account-based Marketing (ABM) and Enterprise Demand Generation.
+Salary Range: $240,000—$300,000 USD
+Summary: The role involves owning the end-to-end customer acquisition strategy across segments, executing targeted campaigns, and driving growth through a mix of digital and traditional marketing tactics. The ideal candidate will lead the account-based marketing strategy and work closely with Sales to drive business impact.
+                    
+
+Job Posting:
+-----------
+Title: Brand Communications Manager
+Location: Hybrid (in-office at least 25% of the time)
+Skills: Online communications, Technical aptitude in AI, Understanding of online spaces and technical communities, Writing skills, Creative storytelling, Campaign ideation, Product launch experience
+Experience: 5+ years in online communications, ideally at a high-growth technology company
+Salary Range: $170,000—$240,000 USD
+Summary: Anthropic is seeking a Brand Communications Manager to shape how the company presents itself online. The role requires blending technical understanding with creative storytelling to craft narratives that resonate across various platforms. The manager will work closely with product teams and researchers to showcase AI capabilities and ensure effective communication.
+                    
+
+Job Posting:
+-----------
+Title: Brand Designer
+Location: San Francisco, hybrid policy (in-office at least 25% of the time)
+Skills: Design expertise, Strategic thinking, Collaboration, Visual strategy development, Brand asset creation, Project management
+Experience: Not explicitly stated, but a portfolio showcasing brand projects across various marketing functions is required.
+Salary Range: $260,000—$305,000 USD
+Summary: Anthropic is looking for a talented Brand Designer to elevate our visual identity and bring our innovative AI products, research, and ideas to life. In this role, you'll craft engaging marketing and brand experiences across various channels, working closely with cross-functional teams to transform complex concepts into effective brand experiences.
+                    
+
+Job Posting:
+-----------
+Title: Research Engineer
+Location: Hybrid (25% in-office presence required), with offices in San Francisco, CA; Seattle, WA; New York, NY
+Skills: Python, Deep learning frameworks (PyTorch, Jax), Software engineering, Reinforcement learning, High performance computing, Virtualization, Kubernetes
+Experience: 5+ years of industry-related experience
+Salary Range: £240,000—£500,000 GBP
+Summary: As a Research Engineer on the Reinforcement Learning Fundamentals team, you will collaborate with researchers and engineers to advance the capabilities and safety of large language models through fundamental research in reinforcement learning. The role involves improving reasoning abilities in areas such as code generation and mathematics, and exploring reinforcement learning for agentic tasks.
+                    
