@@ -29,9 +29,14 @@ MODELS = [
         "function": "get_ocr_claude",
     },
     {
-        "provider": "claude",
-        "name": "claude-3-5-haiku-20241022",
-        "function": "get_ocr_claude",
+        "provider": "openai",
+        "name": "gpt-4o-2024-11-20",
+        "function": "get_ocr_openai",
+    },
+    {
+        "provider": "openai",
+        "name": "gpt-4o-mini-2024-07-18",
+        "function": "get_ocr_openai",
     },
 ]
 
