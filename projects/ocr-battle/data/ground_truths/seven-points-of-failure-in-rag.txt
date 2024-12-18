@@ -1,0 +1,65 @@
+# Seven Failure Points When Engineering a Retrieval Augmented Generation System
+
+CAIN 2024, April 2024, Lisbon, Portugal
+
+## Key
+
+| Color | Meaning |
+|---|---|
+| Pink | Failure point |
+| Green | Processing stage |
+| White | Data flow Text input/output |
+
+## Index Process
+
+```mermaid
+graph LR
+    A[Documents] --> B(Chunker)
+    B --> C[Chunks]
+    C --> D[Database]
+    D --> E[Missing Content]
+```
+
+## Query Process
+
+```mermaid
+graph LR
+    A[Query] --> B(Rewriter)
+    B --> C[New Query]
+    C --> D(Retriever)
+    D --> E[Chunks]
+    E --> F(Reranker)
+    F --> G[Ranked Chunks]
+    G --> H(Consolidator)
+    H --> I[Processed Chunks]
+    I --> J(Reader)
+    J --> K[Response]
+    K --> L[Incorrect Specificity]
+    L --> M[Not Extracted]
+    M --> N[Not in Context]
+    N --> O[Wrong Format]
+    O --> P[Incomplete]
+    D --> Q[Missed Top Ranked]
+```
+
+**Figure 1:** Indexing and Query processes required for creating a Retrieval Augmented Generation (RAG) system. The indexing process is typically done at development time and queries at runtime. Failure points identified in this study are shown in red boxes. All required stages are underlined. Figure expanded from [19].
+
+The final stage of a RAG pipeline is when the answer is extracted from the generated text. Readers are responsible for filtering the noise from the prompt, adhering to formatting instructions (i.e. answer the question as a list of options), and producing the output to return for the query. Implementation of a RAG system requires customising multiple prompts to process questions and answers. This process ensures that questions relevant for the domain are returned. The use of large language models to answer real time questions from documents opens up new application domains where question and answering is new capability. Thus, RAG systems are difficult to test as no data exists and needs to be experimentally discovered through either a) synthetic data generation, or b) piloting the system with minimal testing.
+
+## 4 CASE STUDIES
+
+This study conducted three case studies to discover the challenges that arise when implementing RAG systems. A summary of each of the case studies is shown in Table 1. All scripts, data, and examples of each of the failure points for the BioASQ case study are available online <sup>5</sup>. The other two case studies have been excluded due to confidentiality concerns.
+
+### 4.1 Cognitive Reviewer
+
+Cognitive Reviewer is a RAG system designed to support researchers in analysing scientific documents. Researchers specify a research question or objective and then upload a collection of related research papers. All of the documents are then ranked in accordance with the stated objective for the researcher to manually review. The researcher can also ask questions directly against all of the documents. Cognitive Reviewer is currently used by PhD students from Deakin University to support their literature reviews. The Cognitive Reviewer does the Index process at run time and relies on a robust data processing pipeline to handle uploaded documents i.e. no quality control possible at development time. This system also uses a ranking algorithm to sort the uploaded documents.
+
+### 4.2 AI Tutor
+
+The AI Tutor is a RAG system where students ask questions about the unit and answers are sourced from the learning content. Students are able to verify the answers by accessing a sources list from where the answer came from. The Al Tutor works by integrating into Deakin's learning management system, indexing all of the content including PDF documents, videos, and text documents. As part of the Index process, videos are transcribed using the deep learning model Whisper [17] before being chunked. The AI Tutor was developed between August 2023 to November 2023 for a pilot in a unit with 200 students that commenced the 30th of October 2023. Our intention is to present the lessons learned during implementation and present a followup findings at the conclusion of the pilot. This RAG pipeline includes a rewriter to generalise queries. We implemented a chat interface where previous dialogue between the user and the Al Tutor was used as part of the context for each question. The rewriter considers this context and rewrites the query to resolve ambiguous requests such as 'Explain this concept further.'
+
+### 4.3 Biomedical Question and Answer
+
+The previous case studies focused on documents with smaller content sizes. To explore the issues at a larger scale we created a RAG system using the BioASQ [10] dataset comprised of questions, links to document, and answers. The answers to questions were one of yes/no, text summarisation, factoid, or list. This dataset was prepared by biomedical experts and contains domain specific question and answer pairs. We downloaded 4017 open access documents from the BioASQ dataset and had a total of 1000 questions. All documents were indexed and the questions asked against the RAG system. The generated questions were then evaluated using the
+
+<sup>5</sup>https://figshare.com/s/fbf7805b5f20d7f7e356

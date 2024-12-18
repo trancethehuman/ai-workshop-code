@@ -3,7 +3,9 @@ from consts import MODELS
 import importlib
 
 
-def get_ocr_result(image_url: str, provider: str, model_name: str) -> str:
+def get_ocr_result(
+    image_url: str, provider: str, model_name: str, image_name: str
+) -> str:
     """
     Get OCR result from specified provider and model
     """
@@ -24,5 +26,5 @@ def get_ocr_result(image_url: str, provider: str, model_name: str) -> str:
     # Get the function
     function = getattr(module, model_config["function"])
 
-    # Call the function
-    return function(image_url)
+    # Call the function with image name as tag
+    return function(image_url, model_name, image_name)

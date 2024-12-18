@@ -38,13 +38,42 @@ MODELS = [
         "name": "gpt-4o-mini-2024-07-18",
         "function": "get_ocr_openai",
     },
+    {
+        "provider": "x",
+        "name": "grok-2-vision-1212",
+        "function": "get_ocr_x",
+    },
 ]
 
 IMG_URLS = [
-    "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/seven-points-of-failure-in-rag.png?raw=true",
-    "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/attention-is-all-you-need.png?raw=true",
-    "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/attention-is-all-you-need-upside-down.png?raw=true",
-    "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/bill-gates-resume.png?raw=true",
-    "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/code-screenshot.png?raw=true",
-    "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/code-left-pdf-right.png?raw=true",
+    {
+        "name": "seven-points-of-failure-in-rag.png",
+        "url": "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/seven-points-of-failure-in-rag.png?raw=true",
+        "ground_truth_file_name": "./ground_truths/seven-points-of-failure-in-rag.txt",
+    },
+    {
+        "name": "attention-is-all-you-need.png",
+        "url": "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/attention-is-all-you-need.png?raw=true",
+        "ground_truth_file_name": "./ground_truths/attention-is-all-you-need.txt",
+    },
+    {
+        "name": "attention-is-all-you-need-upside-down.png",
+        "url": "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/attention-is-all-you-need-upside-down.png?raw=true",
+        "ground_truth_file_name": "./ground_truths/attention-is-all-you-need-upside-down.txt",
+    },
+    {
+        "name": "bill-gates-resume.png",
+        "url": "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/bill-gates-resume.png?raw=true",
+        "ground_truth_file_name": "./ground_truths/bill-gates-resume.txt",
+    },
+    {
+        "name": "code-screenshot.png",
+        "url": "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/code-screenshot.png?raw=true",
+        "ground_truth_file_name": "./ground_truths/code-screenshot.txt",
+    },
+    {
+        "name": "code-left-pdf-right.png",
+        "url": "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/code-left-pdf-right.png?raw=true",
+        "ground_truth_file_name": "./ground_truths/code-left-pdf-right.txt",
+    },
 ]

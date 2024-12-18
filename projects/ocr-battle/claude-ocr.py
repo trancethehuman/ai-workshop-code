@@ -16,8 +16,8 @@ class OCRResponse(BaseModel):
     text: str
 
 
-def get_ocr_claude(image_url: str, model_name: str) -> str:
-    @traceable(name=model_name, run_type="llm")
+def get_ocr_claude(image_url: str, model_name: str, image_name: str) -> str:
+    @traceable(name=model_name, run_type="llm", tags=[image_name])
     def _traced_ocr(url: str) -> str:
         # Download the image
         response = requests.get(url)
@@ -55,8 +55,9 @@ def get_ocr_claude(image_url: str, model_name: str) -> str:
 
 def test_claude_models():
     # Get the first image URL for testing
-    test_image = IMG_URLS[0]
-    print(f"Testing with image: {test_image}\n")
+    test_image = IMG_URLS[0]["url"]
+    img_name = IMG_URLS[0]["name"]
+    print(f"Testing with image: {IMG_URLS[0]['name']}\n")
 
     # Filter for Claude models
     claude_models = [m for m in MODELS if m["provider"] == "claude"]
@@ -65,7 +66,7 @@ def test_claude_models():
         print(f"\nTesting {model['name']}")
         print("-" * 30)
         try:
-            result = get_ocr_claude(test_image, model["name"])
+            result = get_ocr_claude(test_image, model["name"], img_name)
             print(f"Result:\n{result}")
         except Exception as e:
             print(f"Error: {str(e)}")
