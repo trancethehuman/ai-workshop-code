@@ -1,5 +1,5 @@
 from typing import Dict, Any
-from models import models
+from consts import MODELS
 import importlib
 
 
@@ -9,7 +9,7 @@ def get_ocr_result(image_url: str, provider: str, model_name: str) -> str:
     """
     # Find the model config
     model_config = next(
-        (m for m in models if m["provider"] == provider and m["name"] == model_name),
+        (m for m in MODELS if m["provider"] == provider and m["name"] == model_name),
         None,
     )
 

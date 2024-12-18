@@ -3,3 +3,39 @@ OCR_SYSTEM_PROMPT = """You're an expert at OCR and you extract the content from 
 If there are charts, make sure to draw them in markdown friendly format.
 
 If there're tables, make sure they're in markdown format as well."""
+
+MODELS = [
+    {"provider": "google", "name": "gemini-1.5-flash-8b", "function": "get_ocr_gemini"},
+    {"provider": "google", "name": "gemini-1.5-flash", "function": "get_ocr_gemini"},
+    {"provider": "google", "name": "gemini-1.5-pro", "function": "get_ocr_gemini"},
+    {
+        "provider": "google",
+        "name": "gemini-2.0-flash-exp",
+        "function": "get_ocr_gemini",
+    },
+    {
+        "provider": "llama",
+        "name": "meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo",
+        "function": "get_ocr_llama",
+    },
+    {
+        "provider": "llama",
+        "name": "meta-llama/Llama-3.2-90B-Vision-Instruct-Turbo",
+        "function": "get_ocr_llama",
+    },
+    {
+        "provider": "claude",
+        "name": "claude-3-5-sonnet-20241022",
+        "function": "get_ocr_claude",
+    },
+    {
+        "provider": "claude",
+        "name": "claude-3-5-haiku-20241022",
+        "function": "get_ocr_claude",
+    },
+]
+
+IMG_URLS = [
+    "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/seven-points-of-failure-in-rag.png?raw=true",
+    "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/attention-is-all-you-need.png?raw=true",
+]
