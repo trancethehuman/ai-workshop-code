@@ -43,4 +43,8 @@ MODELS = [
 IMG_URLS = [
     "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/seven-points-of-failure-in-rag.png?raw=true",
     "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/attention-is-all-you-need.png?raw=true",
+    "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/attention-is-all-you-need-upside-down.png?raw=true",
+    "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/bill-gates-resume.png?raw=true",
+    "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/code-screenshot.png?raw=true",
+    "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/code-left-pdf-right.png?raw=true",
 ]
