@@ -1,0 +1,62 @@
+RSVP SERVICES
+
+(609) 667-4488
+(215) 629-0595
+
+FOR COMPUTER ORIENTED COMPANIES
+
+ONE CHERRY HILL MALL
+CHERRY HILL N J
+08034
+
+RECRUITMENT
+SELECTION
+VOCATIONAL COUNSELLING
+PLACEMENT
+
+HOWARD LEVIN
+DIRECTOR
+
+RALPH P. MCINTYRE
+MANAGER,
+CLIENT RELATIONS
+
+William H. Gates
+Wigglesworth A-11
+Harvard University
+Cambridge, Massachusetts 02138
+(617)498-3909
+After 6/1/74: 5161 N.E. 41st
+Seattle, Wash. 98015
+(206)524-0796
+
+5' 10" 130 lbs
+No dependents
+Salary: $12,000
+Desired salary: open
+Location: open, no restrictions
+
+OBJECTIVE: Systems analyst or systems programmer
+
+EDUCATION
+
+Currently enrolled for first year at Harvard College
+Courses taken include: Operating Systems Structure, Data Base Management, Compiler Construction and Computer Graphics. Honors student and received A's in all of the above.
+
+EXPERIENCE: PDP-10, PDP-8, PDP-11, PDP-1; CDC 6400; Burroughs 5500; Nova 1200; MCS-8008; FORTRAN, COBOL, ALGOL, BASIC, machine languages for most of the above computers, LISP, JOSS; power control real-time systems; traffic flow analysis system; school scheduling; payroll
+
+TRW Systems Group, Vancouver, Washington, 1/73 - 9/73
+
+Systems Programmer, involved with file design and modifications to operating system, system library and utilities (flowcharting, coding, debugging and documentation). The project involved setting up a real-time system for power control around two PDP-10's and three PDP-11's.
+
+In partnership with Paul G. Allen, 6/72 - present
+
+Designed and put together a system for traffic engineers to study traffic flow. The system is built around Intel's MCS-8008 microcomputer. The software and hardware set-up has been fully tested using a prototype. Demonstrations to customers are planned for May, 1974.
+
+Lakeside School, Seattle, Washington, 6/71 - 9/71 and 6/72 - 9/72
+
+Co-Leader and Co-Partner, on contract, in project to set-up a general purpose program to do scheduling for private high schools. Software was written mainly in FORTRAN on CDC 6400, PDP-10 and PDP-11. Total profits from this venture exceed $10,000.
+
+Information Sciences Inc., Portland, Oregon, 1/71 - 12/71
+
+Part of team designing and implementing an extensive payroll package in COBOL. Project Leader and in charge of overall design for last six months.
