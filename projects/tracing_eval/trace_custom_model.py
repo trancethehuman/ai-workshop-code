@@ -17,7 +17,7 @@ gemini_client = OpenAI(
     base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
 )
 
-model_name = "gemini-1.5-flash-8b"
+model_name = "gemini-2.0-flash-exp"
 
 
 class UsageMetadata(BaseModel):
@@ -37,7 +37,7 @@ def num_tokens_from_string(string: str, encoding_name: str) -> int:
 
 
 @traceable(
-    name="gemini-1.5-flash-8b",
+    name=model_name,
     run_type="llm",
     metadata={"ls_provider": "gemini", "ls_model_name": model_name},
 )
