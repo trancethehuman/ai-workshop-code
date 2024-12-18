@@ -1,7 +1,10 @@
 from ground_truths import (
-    seven_points_of_failure_in_rag,
     attention_is_all_you_need,
     attention_is_all_you_need_upside_down,
+    bill_gates_resume,
+    code_left_pdf_right,
+    code_screenshot,
+    seven_points_of_failure_in_rag,
 )
 
 OCR_SYSTEM_PROMPT = """You're an expert at OCR and you extract the content from images, website and PDFs verbatim. Your response must be in markdown format (with proper headers). Do not include information that is not in the image.
@@ -11,11 +14,11 @@ If there are charts, make sure to draw them in markdown friendly format.
 If there're tables, make sure they're in markdown format as well."""
 
 MODELS = [
-    {"provider": "google", "name": "gemini-1.5-flash-8b", "function": "get_ocr_gemini"},
-    {"provider": "google", "name": "gemini-1.5-flash", "function": "get_ocr_gemini"},
-    {"provider": "google", "name": "gemini-1.5-pro", "function": "get_ocr_gemini"},
+    {"provider": "gemini", "name": "gemini-1.5-flash-8b", "function": "get_ocr_gemini"},
+    {"provider": "gemini", "name": "gemini-1.5-flash", "function": "get_ocr_gemini"},
+    {"provider": "gemini", "name": "gemini-1.5-pro", "function": "get_ocr_gemini"},
     {
-        "provider": "google",
+        "provider": "gemini",
         "name": "gemini-2.0-flash-exp",
         "function": "get_ocr_gemini",
     },
@@ -75,15 +78,18 @@ IMG_URLS = [
         "name": "bill-gates-resume.png",
         "url": "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/bill-gates-resume.png?raw=true",
         "ground_truth_file_name": "./ground_truths/bill-gates-resume.txt",
+        "reference": bill_gates_resume,
     },
     {
         "name": "code-screenshot.png",
         "url": "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/code-screenshot.png?raw=true",
         "ground_truth_file_name": "./ground_truths/code-screenshot.txt",
+        "reference": code_left_pdf_right,
     },
     {
         "name": "code-left-pdf-right.png",
         "url": "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/code-left-pdf-right.png?raw=true",
         "ground_truth_file_name": "./ground_truths/code-left-pdf-right.txt",
+        "reference": code_screenshot,
     },
 ]

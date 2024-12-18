@@ -17,7 +17,7 @@ def run_ocr_battle():
                     img_data["name"],
                     img_data["reference"],
                 )
-                print(f"Result:\n{result}\n")
+                # print(f"Result:\n{result}\n")
             except Exception as e:
                 print(f"Error: {str(e)}")
 
