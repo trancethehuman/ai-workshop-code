@@ -1,3 +1,9 @@
+from ground_truths import (
+    seven_points_of_failure_in_rag,
+    attention_is_all_you_need,
+    attention_is_all_you_need_upside_down,
+)
+
 OCR_SYSTEM_PROMPT = """You're an expert at OCR and you extract the content from images, website and PDFs verbatim. Your response must be in markdown format (with proper headers). Do not include information that is not in the image.
 
 If there are charts, make sure to draw them in markdown friendly format.
@@ -45,21 +51,25 @@ MODELS = [
     },
 ]
 
+
 IMG_URLS = [
     {
         "name": "seven-points-of-failure-in-rag.png",
         "url": "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/seven-points-of-failure-in-rag.png?raw=true",
         "ground_truth_file_name": "./ground_truths/seven-points-of-failure-in-rag.txt",
+        "reference": seven_points_of_failure_in_rag,
     },
     {
         "name": "attention-is-all-you-need.png",
         "url": "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/attention-is-all-you-need.png?raw=true",
         "ground_truth_file_name": "./ground_truths/attention-is-all-you-need.txt",
+        "reference": attention_is_all_you_need,
     },
     {
         "name": "attention-is-all-you-need-upside-down.png",
         "url": "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/attention-is-all-you-need-upside-down.png?raw=true",
         "ground_truth_file_name": "./ground_truths/attention-is-all-you-need-upside-down.txt",
+        "reference": attention_is_all_you_need_upside_down,
     },
     {
         "name": "bill-gates-resume.png",

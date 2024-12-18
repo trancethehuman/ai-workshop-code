@@ -4,7 +4,7 @@ import importlib
 
 
 def get_ocr_result(
-    image_url: str, provider: str, model_name: str, image_name: str
+    image_url: str, provider: str, model_name: str, image_name: str, reference: str
 ) -> str:
     """
     Get OCR result from specified provider and model
@@ -26,5 +26,5 @@ def get_ocr_result(
     # Get the function
     function = getattr(module, model_config["function"])
 
-    # Call the function with image name as tag
-    return function(image_url, model_name, image_name)
+    # Call the function with image name as tag and reference
+    return function(image_url, model_name, image_name, reference)
