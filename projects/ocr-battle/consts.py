@@ -11,7 +11,15 @@ OCR_SYSTEM_PROMPT = """You're an expert at OCR and you extract the content from 
 
 If there are charts, make sure to draw them in markdown friendly format.
 
-If there're tables, make sure they're in markdown format as well."""
+If there're tables, make sure they're in markdown format as well.
+
+Your response should not have "```markdown" tag that wraps the entire response.
+
+Instead you should use proper tags for code and other things when appropriate.
+
+Now respond with just the content from the image.
+
+"""
 
 MODELS = [
     {"provider": "gemini", "name": "gemini-1.5-flash-8b", "function": "get_ocr_gemini"},
@@ -57,12 +65,6 @@ MODELS = [
 
 IMG_URLS = [
     {
-        "name": "seven-points-of-failure-in-rag.png",
-        "url": "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/seven-points-of-failure-in-rag.png?raw=true",
-        "ground_truth_file_name": "./ground_truths/seven-points-of-failure-in-rag.txt",
-        "reference": seven_points_of_failure_in_rag,
-    },
-    {
         "name": "attention-is-all-you-need.png",
         "url": "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/attention-is-all-you-need.png?raw=true",
         "ground_truth_file_name": "./ground_truths/attention-is-all-you-need.txt",
@@ -91,5 +93,11 @@ IMG_URLS = [
         "url": "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/code-left-pdf-right.png?raw=true",
         "ground_truth_file_name": "./ground_truths/code-left-pdf-right.txt",
         "reference": code_screenshot,
+    },
+    {
+        "name": "seven-points-of-failure-in-rag.png",
+        "url": "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/seven-points-of-failure-in-rag.png?raw=true",
+        "ground_truth_file_name": "./ground_truths/seven-points-of-failure-in-rag.txt",
+        "reference": seven_points_of_failure_in_rag,
     },
 ]
