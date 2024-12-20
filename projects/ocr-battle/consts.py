@@ -86,13 +86,13 @@ IMG_URLS = [
         "name": "code-screenshot.png",
         "url": "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/code-screenshot.png?raw=true",
         "ground_truth_file_name": "./ground_truths/code-screenshot.txt",
-        "reference": code_left_pdf_right,
+        "reference": code_screenshot,
     },
     {
         "name": "code-left-pdf-right.png",
         "url": "https://github.com/trancethehuman/ai-workshop-code/blob/main/projects/ocr-battle/data/cleaned/code-left-pdf-right.png?raw=true",
         "ground_truth_file_name": "./ground_truths/code-left-pdf-right.txt",
-        "reference": code_screenshot,
+        "reference": code_left_pdf_right,
     },
     {
         "name": "seven-points-of-failure-in-rag.png",
