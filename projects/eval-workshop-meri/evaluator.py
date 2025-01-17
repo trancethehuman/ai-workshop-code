@@ -234,8 +234,8 @@ def run_evaluation():
 
     print("\nRunning evaluations...")
     evaluators = [
-        # technical_accuracy_evaluator,
-        # readability_evaluator,
+        technical_accuracy_evaluator,
+        readability_evaluator,
         style_and_trust_evaluator,
     ]
     results = run_evaluators(dataset.name, evaluators)

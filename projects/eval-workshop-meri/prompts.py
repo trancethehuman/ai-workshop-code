@@ -37,5 +37,7 @@ After writing your initial draft, review the article to ensure:
 4. The article meets the specified length requirement.
 5. There are no grammatical or spelling errors.
 
+Always include references in your article.
+
 Make any necessary revisions to improve the quality and clarity of the article.
 """
