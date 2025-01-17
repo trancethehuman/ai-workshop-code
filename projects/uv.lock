@@ -538,6 +538,18 @@ wheels = [
 ]
 
 [[package]]
+name = "judges"
+version = "0.0.5"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "openai" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/31/4a/1f80a46d88ca7d3c5674e430333e8fa021c2803c34e5e5733775a21b7e53/judges-0.0.5.tar.gz", hash = "sha256:ebe18cf461addd6471fbc24f3eeb60f1480c0c6575fe2e62e22b55efb99ca075", size = 59456 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/69/40/64ca10552d5c06875127059f481c5b7acc5a2f503e451ea92b9a24c68dce/judges-0.0.5-py3-none-any.whl", hash = "sha256:141dbb2d3144b3c0f87ae3ca5fa5fc87559c92d12291582d285e46e0a381a63b", size = 54201 },
+]
+
+[[package]]
 name = "langsmith"
 version = "0.1.146"
 source = { registry = "https://pypi.org/simple" }
@@ -662,7 +674,7 @@ wheels = [
 
 [[package]]
 name = "openai"
-version = "1.55.1"
+version = "1.57.4"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
@@ -674,9 +686,9 @@ dependencies = [
     { name = "tqdm" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c2/5c/8c126c0c4ceddf63964acd224c3cf5a37c2e845bb8ff12db6acc96d335c5/openai-1.55.1.tar.gz", hash = "sha256:471324321e7739214f16a544e801947a046d3c5d516fae8719a317234e4968d3", size = 314276 }
+sdist = { url = "https://files.pythonhosted.org/packages/29/e4/267d7f3f93432454f6dde95f08c737f48f031090693e558e2da7e63909ec/openai-1.57.4.tar.gz", hash = "sha256:a8f071a3e9198e2818f63aade68e759417b9f62c0971bdb83de82504b70b77f7", size = 316459 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/24/cf/1fbe3eaf1d90796722c3dcd268e103a6a0918f25ec51138c7d27aec7f001/openai-1.55.1-py3-none-any.whl", hash = "sha256:d10d96a4f9dc5f05d38dea389119ec8dcd24bc9698293c8357253c601b4a77a5", size = 389536 },
+    { url = "https://files.pythonhosted.org/packages/3e/be/b466c8b64b224d285a338fbc705dc9d58cd60068bbfb8be2e47b1691e55c/openai-1.57.4-py3-none-any.whl", hash = "sha256:7def1ab2d52f196357ce31b9cfcf4181529ce00838286426bb35be81c035dafb", size = 390267 },
 ]
 
 [[package]]
@@ -757,6 +769,7 @@ dependencies = [
     { name = "exa-py" },
     { name = "firecrawl" },
     { name = "google-generativeai" },
+    { name = "judges" },
     { name = "langsmith" },
     { name = "openai" },
     { name = "packaging" },
@@ -773,6 +786,7 @@ requires-dist = [
     { name = "exa-py", specifier = ">=1.6.0" },
     { name = "firecrawl", specifier = ">=1.6.2" },
     { name = "google-generativeai", specifier = ">=0.8.3" },
+    { name = "judges", specifier = ">=0.0.5" },
     { name = "langsmith", specifier = ">=0.1.139" },
     { name = "openai", specifier = ">=1.54.1" },
     { name = "packaging" },
