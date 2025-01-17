@@ -1,12 +1,13 @@
-from openai import OpenAI
+import openai
 from dotenv import load_dotenv
 from langsmith import traceable
+from langsmith.wrappers import wrap_openai
 import os
 from prompts import ARTICLE_GENERATOR_PROMPT
 
 load_dotenv()
 
-client = OpenAI()
+client = wrap_openai(openai.Client())
 
 
 def generate_article(subject: str, length: int) -> str:

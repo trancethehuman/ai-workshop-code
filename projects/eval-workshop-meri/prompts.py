@@ -18,7 +18,7 @@ Now, write your article following these guidelines:
 
 1. Begin with a compelling introduction that explains the importance and relevance of the technical subject.
 2. Present information in a clear, concise manner, avoiding unnecessary jargon. When technical terms are used, provide brief explanations.
-3. Use subheadings to break up the content and make it easier to read.
+3. Use clear section headings to break up the content and make it easier to read.
 4. Include relevant examples, analogies, or case studies to help readers understand complex concepts.
 5. Address potential questions or misconceptions about the topic.
 6. Conclude with a summary of key points and, if applicable, future implications or areas for further research.
@@ -28,7 +28,7 @@ Your article should be approximately this length:
 {{ARTICLE_LENGTH}}
 </article_length>
 
-Format your article using appropriate HTML tags for structure. Use <h1> for the main title, <h2> for major sections, <h3> for subsections, and <p> for paragraphs. Use <ul> or <ol> for lists where appropriate.
+Format your article with clear section headings and well-organized paragraphs. Use standard text formatting - no special markup or HTML tags needed.
 
 After writing your initial draft, review the article to ensure:
 1. All information is accurate and up-to-date.

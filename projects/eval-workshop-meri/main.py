@@ -5,8 +5,9 @@ from generator import generate_article
 
 
 def main():
-    # Create output directory if it doesn't exist
-    output_dir = "generated_articles"
+    # Create output directory in the same folder as this script
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    output_dir = os.path.join(current_dir, "generated_articles")
     os.makedirs(output_dir, exist_ok=True)
 
     # Get current timestamp for the batch
@@ -21,7 +22,7 @@ def main():
             article = generate_article(topic["subject"], topic["length"])
 
             # Create filename from topic
-            filename = f"{topic['subject'].lower().replace(' ', '_')}_{timestamp}.html"
+            filename = f"{topic['subject'].lower().replace(' ', '_')}_{timestamp}.txt"
             filepath = os.path.join(output_dir, filename)
 
             # Save the article
