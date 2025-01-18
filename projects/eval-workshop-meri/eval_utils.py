@@ -76,7 +76,7 @@ def format_evaluation_results(results):
     """Format evaluation results into tables"""
     # Prepare data for table
     table_data = []
-    headers = ["Article", "Technical", "Readability", "Style & Trust", "Details"]
+    headers = ["Article", "Opening", "Writing", "Technical", "References", "Details"]
 
     # Iterate over the results
     for result in results:
@@ -87,7 +87,12 @@ def format_evaluation_results(results):
 
             # Initialize row data
             row_data = [topic]
-            scores = {"technical_quality": "", "readability": "", "style_and_trust": ""}
+            scores = {
+                "opening_effectiveness": "",
+                "writing_quality": "",
+                "technical_presentation": "",
+                "references": "",
+            }
             details = []
 
             # Process evaluation results
@@ -105,48 +110,44 @@ def format_evaluation_results(results):
                     eval_result.evaluator_info if eval_result.evaluator_info else {}
                 )
 
-                if eval_result.key == "style_and_trust":
-                    details.append("Style & Trust Evaluation:")
-                    details.append(
-                        f"Explanation: {comment[:200]}..."
-                    )  # Truncate long explanations
+                if eval_result.key == "opening_effectiveness":
+                    details.append("Opening Effectiveness:")
+                    details.append(f"Explanation: {comment[:150]}...")
                     if "improvement_suggestions" in evaluator_info:
-                        improvements = evaluator_info["improvement_suggestions"]
                         details.append(
-                            f"Improvements needed: {improvements[:150]}..."
-                        )  # Truncate long lists
-                    if evaluator_info:
-                        details.append("Scores:")  # Shortened header
-                        for key, value in evaluator_info.items():
-                            if key not in ["improvement_suggestions"]:
-                                details.append(f"- {key}: {value}")
-                elif eval_result.key == "technical_quality":
-                    details.append("\nTechnical Quality:")  # Shortened header
-                    details.append(
-                        f"Explanation: {comment[:200]}..."
-                    )  # Truncate long explanations
-                    if evaluator_info:
-                        details.append("Scores:")  # Shortened header
-                        for key, value in evaluator_info.items():
-                            details.append(f"- {key}: {value}")
-                elif eval_result.key == "readability":
-                    details.append("\nReadability:")  # Shortened header
-                    details.append(
-                        f"Explanation: {comment[:200]}..."
-                    )  # Truncate long explanations
-                    if evaluator_info:
-                        details.append("Scores:")  # Shortened header
-                        for key, value in evaluator_info.items():
-                            details.append(f"- {key}: {value}")
+                            f"Improvements: {evaluator_info['improvement_suggestions'][:100]}..."
+                        )
+                elif eval_result.key == "writing_quality":
+                    details.append("\nWriting Quality:")
+                    details.append(f"Explanation: {comment[:150]}...")
+                    if "improvement_suggestions" in evaluator_info:
+                        details.append(
+                            f"Improvements: {evaluator_info['improvement_suggestions'][:100]}..."
+                        )
+                elif eval_result.key == "technical_presentation":
+                    details.append("\nTechnical Presentation:")
+                    details.append(f"Explanation: {comment[:150]}...")
+                    if "improvement_suggestions" in evaluator_info:
+                        details.append(
+                            f"Improvements: {evaluator_info['improvement_suggestions'][:100]}..."
+                        )
+                elif eval_result.key == "references":
+                    details.append("\nReferences & Support:")
+                    details.append(f"Explanation: {comment[:150]}...")
+                    if "improvement_suggestions" in evaluator_info:
+                        details.append(
+                            f"Improvements: {evaluator_info['improvement_suggestions'][:100]}..."
+                        )
 
             # Format the details with proper wrapping
             formatted_details = wrap_text("\n".join(details))
 
             row_data.extend(
                 [
-                    scores.get("technical_quality", ""),
-                    scores.get("readability", ""),
-                    scores.get("style_and_trust", ""),
+                    scores.get("opening_effectiveness", ""),
+                    scores.get("writing_quality", ""),
+                    scores.get("technical_presentation", ""),
+                    scores.get("references", ""),
                     formatted_details,
                 ]
             )
@@ -176,23 +177,37 @@ def print_evaluation_tables(table_data, headers):
     # Calculate and print average scores
     if table_data:
         # Filter out empty scores and convert to float
-        tech_scores = [float(row[1]) for row in table_data if row[1]]
-        read_scores = [float(row[2]) for row in table_data if row[2]]
-        style_scores = [float(row[3]) for row in table_data if row[3]]
+        opening_scores = [float(row[1]) for row in table_data if row[1]]
+        writing_scores = [float(row[2]) for row in table_data if row[2]]
+        technical_scores = [float(row[3]) for row in table_data if row[3]]
+        reference_scores = [float(row[4]) for row in table_data if row[4]]
 
         # Calculate averages only if we have scores
         avg_scores = []
-        if tech_scores:
+        if opening_scores:
             avg_scores.append(
-                ["Technical Quality", f"{sum(tech_scores) / len(tech_scores):.2f}"]
+                [
+                    "Opening Effectiveness",
+                    f"{sum(opening_scores) / len(opening_scores):.2f}",
+                ]
             )
-        if read_scores:
+        if writing_scores:
             avg_scores.append(
-                ["Readability", f"{sum(read_scores) / len(read_scores):.2f}"]
+                ["Writing Quality", f"{sum(writing_scores) / len(writing_scores):.2f}"]
             )
-        if style_scores:
+        if technical_scores:
             avg_scores.append(
-                ["Style & Trust", f"{sum(style_scores) / len(style_scores):.2f}"]
+                [
+                    "Technical Presentation",
+                    f"{sum(technical_scores) / len(technical_scores):.2f}",
+                ]
+            )
+        if reference_scores:
+            avg_scores.append(
+                [
+                    "References & Support",
+                    f"{sum(reference_scores) / len(reference_scores):.2f}",
+                ]
             )
 
         if avg_scores:
