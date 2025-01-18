@@ -113,31 +113,66 @@ def format_evaluation_results(results):
                 if eval_result.key == "opening_effectiveness":
                     details.append("Opening Effectiveness:")
                     details.append(f"Explanation: {comment[:150]}...")
-                    if "improvement_suggestions" in evaluator_info:
-                        details.append(
-                            f"Improvements: {evaluator_info['improvement_suggestions'][:100]}..."
-                        )
+                    if evaluator_info and "improvement_suggestions" in evaluator_info:
+                        improvements = evaluator_info["improvement_suggestions"]
+                        if improvements:
+                            details.append(f"Improvements needed:")
+                            # Split improvements if it's a list-like string
+                            if "," in improvements or ";" in improvements:
+                                for imp in improvements.replace(";", ",").split(","):
+                                    imp = imp.strip()
+                                    if imp:
+                                        details.append(f"- {imp[:100]}")
+                            else:
+                                details.append(f"- {improvements[:100]}")
+
                 elif eval_result.key == "writing_quality":
                     details.append("\nWriting Quality:")
                     details.append(f"Explanation: {comment[:150]}...")
-                    if "improvement_suggestions" in evaluator_info:
-                        details.append(
-                            f"Improvements: {evaluator_info['improvement_suggestions'][:100]}..."
-                        )
+                    if evaluator_info and "improvement_suggestions" in evaluator_info:
+                        improvements = evaluator_info["improvement_suggestions"]
+                        if improvements:
+                            details.append(f"Improvements needed:")
+                            # Split improvements if it's a list-like string
+                            if "," in improvements or ";" in improvements:
+                                for imp in improvements.replace(";", ",").split(","):
+                                    imp = imp.strip()
+                                    if imp:
+                                        details.append(f"- {imp[:100]}")
+                            else:
+                                details.append(f"- {improvements[:100]}")
+
                 elif eval_result.key == "technical_presentation":
                     details.append("\nTechnical Presentation:")
                     details.append(f"Explanation: {comment[:150]}...")
-                    if "improvement_suggestions" in evaluator_info:
-                        details.append(
-                            f"Improvements: {evaluator_info['improvement_suggestions'][:100]}..."
-                        )
+                    if evaluator_info and "improvement_suggestions" in evaluator_info:
+                        improvements = evaluator_info["improvement_suggestions"]
+                        if improvements:
+                            details.append(f"Improvements needed:")
+                            # Split improvements if it's a list-like string
+                            if "," in improvements or ";" in improvements:
+                                for imp in improvements.replace(";", ",").split(","):
+                                    imp = imp.strip()
+                                    if imp:
+                                        details.append(f"- {imp[:100]}")
+                            else:
+                                details.append(f"- {improvements[:100]}")
+
                 elif eval_result.key == "references":
                     details.append("\nReferences & Support:")
                     details.append(f"Explanation: {comment[:150]}...")
-                    if "improvement_suggestions" in evaluator_info:
-                        details.append(
-                            f"Improvements: {evaluator_info['improvement_suggestions'][:100]}..."
-                        )
+                    if evaluator_info and "improvement_suggestions" in evaluator_info:
+                        improvements = evaluator_info["improvement_suggestions"]
+                        if improvements:
+                            details.append(f"Improvements needed:")
+                            # Split improvements if it's a list-like string
+                            if "," in improvements or ";" in improvements:
+                                for imp in improvements.replace(";", ",").split(","):
+                                    imp = imp.strip()
+                                    if imp:
+                                        details.append(f"- {imp[:100]}")
+                            else:
+                                details.append(f"- {improvements[:100]}")
 
             # Format the details with proper wrapping
             formatted_details = wrap_text("\n".join(details))

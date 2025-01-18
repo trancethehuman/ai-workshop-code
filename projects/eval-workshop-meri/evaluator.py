@@ -8,11 +8,40 @@ from eval_utils import (
     print_evaluation_tables,
     run_evaluators,
 )
+from pydantic import BaseModel
+from typing import List
 
 load_dotenv()
 
 # Initialize OpenAI client
 openai_client = OpenAI()
+
+# Model constant
+EVAL_MODEL = "gpt-4o-mini"
+
+
+class OpeningEvaluation(BaseModel):
+    score: float
+    justification: str
+    improvement_suggestions: List[str]
+
+
+class WritingEvaluation(BaseModel):
+    score: float
+    justification: str
+    improvement_suggestions: List[str]
+
+
+class TechnicalEvaluation(BaseModel):
+    score: float
+    justification: str
+    improvement_suggestions: List[str]
+
+
+class ReferencesEvaluation(BaseModel):
+    score: float
+    justification: str
+    improvement_suggestions: List[str]
 
 
 def opening_effectiveness_evaluator(example: Example) -> dict:
@@ -23,50 +52,39 @@ def opening_effectiveness_evaluator(example: Example) -> dict:
     - Does it establish author credibility/expertise?
     - Does it hook the reader and provide clear context?
     
-    Article to evaluate:
-    {article}
+    Provide your evaluation in JSON format with:
+    - score (float between 0-5)
+    - justification (string explaining the score)
+    - improvement_suggestions (array of strings with specific improvements needed)
     
-    Provide scores and brief justification in this format:
-    opening_score: X
-    justification: Your brief explanation here
-    improvement_suggestions: List specific improvements needed for the opening"""
+    Article to evaluate:
+    {article}"""
 
     topic = example.inputs.get("topic", "technology")
     article = example.inputs.get("article", "")
 
-    response = openai_client.chat.completions.create(
-        model="gpt-4o-mini",
+    completion = openai_client.chat.completions.create(
+        model=EVAL_MODEL,
         messages=[
             {
                 "role": "system",
                 "content": evaluation_prompt.format(topic=topic, article=article),
-            },
+            }
         ],
+        response_format={"type": "json_object"},
         temperature=0,
     )
 
-    eval_text = response.choices[0].message.content
-
-    # Parse response
-    lines = eval_text.split("\n")
-    score = 0
-    justification = ""
-    improvements = ""
-
-    for line in lines:
-        if "opening_score:" in line:
-            score = float(line.split(":")[1].strip())
-        elif "justification:" in line:
-            justification = line.split(":", 1)[1].strip()
-        elif "improvement_suggestions:" in line:
-            improvements = line.split(":", 1)[1].strip()
+    eval_result = OpeningEvaluation.model_validate_json(
+        completion.choices[0].message.content
+    )
 
     return {
-        "score": score / 5,  # Normalize to 0-1 range
-        "comment": justification,
+        "score": eval_result.score / 5,  # Normalize to 0-1 range
+        "comment": eval_result.justification,
         "evaluator_info": {
-            "opening_score": score,
-            "improvement_suggestions": improvements,
+            "opening_score": eval_result.score,
+            "improvement_suggestions": ", ".join(eval_result.improvement_suggestions),
         },
         "key": "opening_effectiveness",
     }
@@ -81,50 +99,39 @@ def writing_quality_evaluator(example: Example) -> dict:
     - Does it avoid overused LLM phrases (like "let's dive in", "let's explore", "dwelve into")?
     - Is the writing clear and engaging?
     
-    Article to evaluate:
-    {article}
+    Provide your evaluation in JSON format with:
+    - score (float between 0-5)
+    - justification (string explaining the score)
+    - improvement_suggestions (array of strings with specific improvements needed)
     
-    Provide scores and brief justification in this format:
-    writing_score: X
-    justification: Your brief explanation here
-    improvement_suggestions: List specific writing improvements needed"""
+    Article to evaluate:
+    {article}"""
 
     topic = example.inputs.get("topic", "technology")
     article = example.inputs.get("article", "")
 
-    response = openai_client.chat.completions.create(
-        model="gpt-4o-mini",
+    completion = openai_client.chat.completions.create(
+        model=EVAL_MODEL,
         messages=[
             {
                 "role": "system",
                 "content": evaluation_prompt.format(topic=topic, article=article),
-            },
+            }
         ],
+        response_format={"type": "json_object"},
         temperature=0,
     )
 
-    eval_text = response.choices[0].message.content
-
-    # Parse response
-    lines = eval_text.split("\n")
-    score = 0
-    justification = ""
-    improvements = ""
-
-    for line in lines:
-        if "writing_score:" in line:
-            score = float(line.split(":")[1].strip())
-        elif "justification:" in line:
-            justification = line.split(":", 1)[1].strip()
-        elif "improvement_suggestions:" in line:
-            improvements = line.split(":", 1)[1].strip()
+    eval_result = WritingEvaluation.model_validate_json(
+        completion.choices[0].message.content
+    )
 
     return {
-        "score": score / 5,  # Normalize to 0-1 range
-        "comment": justification,
+        "score": eval_result.score / 5,  # Normalize to 0-1 range
+        "comment": eval_result.justification,
         "evaluator_info": {
-            "writing_score": score,
-            "improvement_suggestions": improvements,
+            "writing_score": eval_result.score,
+            "improvement_suggestions": ", ".join(eval_result.improvement_suggestions),
         },
         "key": "writing_quality",
     }
@@ -139,50 +146,39 @@ def technical_presentation_evaluator(example: Example) -> dict:
     - Are examples and analogies used effectively?
     - Is technical jargon properly explained?
     
-    Article to evaluate:
-    {article}
+    Provide your evaluation in JSON format with:
+    - score (float between 0-5)
+    - justification (string explaining the score)
+    - improvement_suggestions (array of strings with specific improvements needed)
     
-    Provide scores and brief justification in this format:
-    technical_score: X
-    justification: Your brief explanation here
-    improvement_suggestions: List specific technical presentation improvements needed"""
+    Article to evaluate:
+    {article}"""
 
     topic = example.inputs.get("topic", "technology")
     article = example.inputs.get("article", "")
 
-    response = openai_client.chat.completions.create(
-        model="gpt-4o-mini",
+    completion = openai_client.chat.completions.create(
+        model=EVAL_MODEL,
         messages=[
             {
                 "role": "system",
                 "content": evaluation_prompt.format(topic=topic, article=article),
-            },
+            }
         ],
+        response_format={"type": "json_object"},
         temperature=0,
     )
 
-    eval_text = response.choices[0].message.content
-
-    # Parse response
-    lines = eval_text.split("\n")
-    score = 0
-    justification = ""
-    improvements = ""
-
-    for line in lines:
-        if "technical_score:" in line:
-            score = float(line.split(":")[1].strip())
-        elif "justification:" in line:
-            justification = line.split(":", 1)[1].strip()
-        elif "improvement_suggestions:" in line:
-            improvements = line.split(":", 1)[1].strip()
+    eval_result = TechnicalEvaluation.model_validate_json(
+        completion.choices[0].message.content
+    )
 
     return {
-        "score": score / 5,  # Normalize to 0-1 range
-        "comment": justification,
+        "score": eval_result.score / 5,  # Normalize to 0-1 range
+        "comment": eval_result.justification,
         "evaluator_info": {
-            "technical_score": score,
-            "improvement_suggestions": improvements,
+            "technical_score": eval_result.score,
+            "improvement_suggestions": ", ".join(eval_result.improvement_suggestions),
         },
         "key": "technical_presentation",
     }
@@ -197,50 +193,39 @@ def references_evaluator(example: Example) -> dict:
     - Are external resources cited when appropriate?
     - Is there a good balance of facts and explanations?
     
-    Article to evaluate:
-    {article}
+    Provide your evaluation in JSON format with:
+    - score (float between 0-5)
+    - justification (string explaining the score)
+    - improvement_suggestions (array of strings with specific improvements needed)
     
-    Provide scores and brief justification in this format:
-    references_score: X
-    justification: Your brief explanation here
-    improvement_suggestions: List specific improvements needed for references and support"""
+    Article to evaluate:
+    {article}"""
 
     topic = example.inputs.get("topic", "technology")
     article = example.inputs.get("article", "")
 
-    response = openai_client.chat.completions.create(
-        model="gpt-4o-mini",
+    completion = openai_client.chat.completions.create(
+        model=EVAL_MODEL,
         messages=[
             {
                 "role": "system",
                 "content": evaluation_prompt.format(topic=topic, article=article),
-            },
+            }
         ],
+        response_format={"type": "json_object"},
         temperature=0,
     )
 
-    eval_text = response.choices[0].message.content
-
-    # Parse response
-    lines = eval_text.split("\n")
-    score = 0
-    justification = ""
-    improvements = ""
-
-    for line in lines:
-        if "references_score:" in line:
-            score = float(line.split(":")[1].strip())
-        elif "justification:" in line:
-            justification = line.split(":", 1)[1].strip()
-        elif "improvement_suggestions:" in line:
-            improvements = line.split(":", 1)[1].strip()
+    eval_result = ReferencesEvaluation.model_validate_json(
+        completion.choices[0].message.content
+    )
 
     return {
-        "score": score / 5,  # Normalize to 0-1 range
-        "comment": justification,
+        "score": eval_result.score / 5,  # Normalize to 0-1 range
+        "comment": eval_result.justification,
         "evaluator_info": {
-            "references_score": score,
-            "improvement_suggestions": improvements,
+            "references_score": eval_result.score,
+            "improvement_suggestions": ", ".join(eval_result.improvement_suggestions),
         },
         "key": "references",
     }
