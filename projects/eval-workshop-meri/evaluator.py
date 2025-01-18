@@ -44,6 +44,19 @@ class ReferencesEvaluation(BaseModel):
     improvement_suggestions: List[str]
 
 
+class HumorEvaluation(BaseModel):
+    score: float
+    justification: str
+    improvement_suggestions: List[str]
+
+
+class JargonEvaluation(BaseModel):
+    score: float
+    justification: str
+    jargon_words: List[str]
+    improvement_suggestions: List[str]
+
+
 def opening_effectiveness_evaluator(example: Example) -> dict:
     """Evaluate the article's opening effectiveness"""
     evaluation_prompt = """You are an expert editor evaluating an article about {topic}.
@@ -231,6 +244,102 @@ def references_evaluator(example: Example) -> dict:
     }
 
 
+def humor_evaluator(example: Example) -> dict:
+    """Evaluate the article's humor and engagement"""
+    evaluation_prompt = """You are an expert editor evaluating an article about {topic}.
+    Score the article's humor and entertainment value (0-5):
+    - Does it use appropriate humor to engage readers?
+    - Are there clever analogies or witty explanations?
+    - Is the humor well-balanced with the technical content?
+    - Does the humor enhance rather than distract from the message?
+    
+    Provide your evaluation in JSON format with:
+    - score (float between 0-5)
+    - justification (string explaining the score)
+    - improvement_suggestions (array of strings with specific improvements needed)
+    
+    Article to evaluate:
+    {article}"""
+
+    topic = example.inputs.get("topic", "technology")
+    article = example.inputs.get("article", "")
+
+    completion = openai_client.chat.completions.create(
+        model=EVAL_MODEL,
+        messages=[
+            {
+                "role": "system",
+                "content": evaluation_prompt.format(topic=topic, article=article),
+            }
+        ],
+        response_format={"type": "json_object"},
+        temperature=0,
+    )
+
+    eval_result = HumorEvaluation.model_validate_json(
+        completion.choices[0].message.content
+    )
+
+    return {
+        "score": eval_result.score / 5,  # Normalize to 0-1 range
+        "comment": eval_result.justification,
+        "evaluator_info": {
+            "humor_score": eval_result.score,
+            "improvement_suggestions": ", ".join(eval_result.improvement_suggestions),
+        },
+        "key": "humor",
+    }
+
+
+def jargon_evaluator(example: Example) -> dict:
+    """Evaluate the article's use of technical jargon"""
+    evaluation_prompt = """You are an expert editor evaluating an article about {topic}.
+    Score the article's use of technical jargon (0-5, where 5 means optimal jargon usage):
+    - Identify all technical jargon and specialized terms
+    - Assess if each jargon term is properly explained
+    - Check if the density of jargon is appropriate for the target audience
+    - Evaluate if simpler alternatives could be used
+    
+    Provide your evaluation in JSON format with:
+    - score (float between 0-5)
+    - justification (string explaining the score)
+    - jargon_words (array of strings listing all technical jargon found)
+    - improvement_suggestions (array of strings with specific improvements needed)
+    
+    Article to evaluate:
+    {article}"""
+
+    topic = example.inputs.get("topic", "technology")
+    article = example.inputs.get("article", "")
+
+    completion = openai_client.chat.completions.create(
+        model=EVAL_MODEL,
+        messages=[
+            {
+                "role": "system",
+                "content": evaluation_prompt.format(topic=topic, article=article),
+            }
+        ],
+        response_format={"type": "json_object"},
+        temperature=0,
+    )
+
+    eval_result = JargonEvaluation.model_validate_json(
+        completion.choices[0].message.content
+    )
+
+    return {
+        "score": eval_result.score / 5,  # Normalize to 0-1 range
+        "comment": eval_result.justification,
+        "evaluator_info": {
+            "jargon_score": eval_result.score,
+            "jargon_words": eval_result.jargon_words,
+            "improvement_suggestions": ", ".join(eval_result.improvement_suggestions),
+        },
+        "key": "jargon_usage",
+    }
+
+
 def run_evaluation():
     """Run the complete evaluation process"""
     print("Reading articles...")
@@ -251,6 +360,8 @@ def run_evaluation():
         writing_quality_evaluator,
         technical_presentation_evaluator,
         references_evaluator,
+        humor_evaluator,
+        jargon_evaluator,
     ]
     results = run_evaluators(dataset.name, evaluators)
 
