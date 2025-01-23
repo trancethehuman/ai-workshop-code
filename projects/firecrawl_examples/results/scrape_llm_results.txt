@@ -1,0 +1,24 @@
+{
+   "business_name": "Whit's Frozen Custard of Granville",
+   "address": "226 E Broadway, GRANVILLE, OH 43023",
+   "phone": "740-587-3620",
+   "operating_hours": {
+       "Monday": "7:30am - 8:30pm",
+       "Tuesday": "7:30am - 8:30pm",
+       "Wednesday": "9:00am - 8:30pm",
+       "Thursday": "7:30am - 8:30pm",
+       "Friday": "7:30am - 9:00pm",
+       "Saturday": "8:00am - 9:00pm",
+       "Sunday": "9:00am - 8:30pm"
+   },
+   "menu_items": [
+       "Vanilla",
+       "Chocolate",
+       "Flavor of the Week"
+   ],
+   "additional_info": {
+       "made_fresh_daily": true,
+       "quality_toppings": true,
+       "customizable_flavors": true
+   }
+}

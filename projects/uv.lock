@@ -407,6 +407,23 @@ wheels = [
 ]
 
 [[package]]
+name = "groq"
+version = "0.15.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "anyio" },
+    { name = "distro" },
+    { name = "httpx" },
+    { name = "pydantic" },
+    { name = "sniffio" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/9f/9c/478c3777922097ab7daf7010bc56a73821031e10cc06a0303275960743d7/groq-0.15.0.tar.gz", hash = "sha256:9ad08ba6156c67d0975595a8515b517f22ff63158e063c55192e161ed3648af1", size = 110929 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/98/e7/662ca14bfe05faf40375969fbb1113bba97fe3ff22d38f44eedeeff2c0b0/groq-0.15.0-py3-none-any.whl", hash = "sha256:c200558b67fee4b4f2bb89cc166337e3419a68c23280065770f8f8b0729c79ef", size = 109563 },
+]
+
+[[package]]
 name = "grpcio"
 version = "1.68.0"
 source = { registry = "https://pypi.org/simple" }
@@ -769,6 +786,7 @@ dependencies = [
     { name = "exa-py" },
     { name = "firecrawl" },
     { name = "google-generativeai" },
+    { name = "groq" },
     { name = "judges" },
     { name = "langsmith" },
     { name = "openai" },
@@ -786,6 +804,7 @@ requires-dist = [
     { name = "exa-py", specifier = ">=1.6.0" },
     { name = "firecrawl", specifier = ">=1.6.2" },
     { name = "google-generativeai", specifier = ">=0.8.3" },
+    { name = "groq", specifier = ">=0.15.0" },
     { name = "judges", specifier = ">=0.0.5" },
     { name = "langsmith", specifier = ">=0.1.139" },
     { name = "openai", specifier = ">=1.54.1" },

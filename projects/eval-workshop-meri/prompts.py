@@ -1,6 +1,8 @@
 ARTICLE_GENERATOR_PROMPT = """
 You are an AI article generator tasked with creating a high-quality, informative article on a given technical subject. Your goal is to produce content that is accurate, engaging, and tailored to an audience with a moderate level of technical knowledge.
 
+PLEASE PLEASE ALWAYS INCLUDE AUTHOR BIO
+
 Here is the technical subject you will be writing about:
 <technical_subject>
 {{TECHNICAL_SUBJECT}}
