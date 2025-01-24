@@ -1,4 +1,5 @@
 import os
+import time
 from firecrawl import FirecrawlApp
 from groq import Groq
 import json
@@ -6,6 +7,9 @@ from pathlib import Path
 from dotenv import load_dotenv
 from pydantic import BaseModel
 from typing import List, Optional
+import firecrawl
+
+print(f"Using Firecrawl version: {firecrawl.__version__}")
 
 load_dotenv()
 
@@ -45,8 +49,11 @@ class BusinessInfo(BaseModel):
     phone: str
 
 
+# @title Define helper functions
 def extract_using_scrape_and_llm():
-    """Extract information using scrape endpoint + LLM approach"""
+    """
+    Extract information using scrape endpoint + LLM approach
+    """
     # First scrape the website
     scrape_response = firecrawl.scrape_url(
         "https://whitscustard.com/locations/granville", params={"formats": ["markdown"]}
@@ -78,8 +85,11 @@ def extract_using_scrape_and_llm():
 
 
 def extract_using_firecrawl_extract():
-    """Extract information using Firecrawl's new extract endpoint"""
-    extract_response = firecrawl.extract(
+    """
+    Extract information using Firecrawl's new extract endpoint
+    """
+    # Start extraction job
+    extract_job = firecrawl.async_extract(
         ["https://whitscustard.com/locations/granville"],
         {
             "prompt": "Extract all business information including name, address, phone number, operating hours, and menu items if available.",
@@ -87,11 +97,22 @@ def extract_using_firecrawl_extract():
         },
     )
 
+    print(extract_job)
+
+    # Poll until job is complete
+    while True:
+        job_status = firecrawl.get_extract_status(extract_job["id"])
+        print(job_status)
+        if job_status["status"] == "completed":
+            extract_response = job_status
+            break
+        time.sleep(1)  # Wait 1 second before polling again
+
     # Save results
     with open("results/firecrawl_extract_results.txt", "w") as f:
-        json.dump(extract_response, f, indent=2)
+        json.dump(extract_response["data"], f, indent=2)
 
-    return extract_response
+    return extract_response["data"]
 
 
 def main():
