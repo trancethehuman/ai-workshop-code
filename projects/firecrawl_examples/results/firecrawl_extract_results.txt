@@ -1,6 +1,6 @@
 {
   "phone": "740-587-3620",
-  "menu_items": "Whit's Frozen Custard offers made fresh daily custard, including Vanilla and Chocolate, along with a signature Flavor of the Week and various quality fresh toppings for custom creations.",
+  "menu_items": "",
   "business_name": "Whit's Frozen Custard",
   "operating_hours": "Monday: 7:30am - 8:30pm, Tuesday: 7:30am - 8:30pm, Wednesday: 9:00am - 8:30pm, Thursday: 7:30am - 8:30pm, Friday: 7:30am - 9:00pm, Saturday: 8:00am - 9:00pm, Sunday: 9:00am - 8:30pm",
   "business_address": "226 E Broadway GRANVILLE, OH 43023"

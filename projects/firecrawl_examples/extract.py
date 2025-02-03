@@ -1,5 +1,6 @@
 import os
 import time
+import asyncio
 from firecrawl import FirecrawlApp
 from groq import Groq
 import json
@@ -25,20 +26,6 @@ Path("results").mkdir(exist_ok=True)
 
 
 # Define the schema using Pydantic
-class BusinessAddress(BaseModel):
-    street: str
-    city: str
-    zip_code: str
-
-
-class MenuItem(BaseModel):
-    item_name: str
-    item_description: str
-
-
-class OperatingHours(BaseModel):
-    day: str
-    time: str
 
 
 class BusinessInfo(BaseModel):
@@ -49,25 +36,27 @@ class BusinessInfo(BaseModel):
     phone: str
 
 
-# @title Define helper functions
-def extract_using_scrape_and_llm():
+async def extract_using_scrape_and_llm():
     """
     Extract information using scrape endpoint + LLM approach
     """
+    print("Starting scrape + LLM extraction...")
     # First scrape the website
     scrape_response = firecrawl.scrape_url(
         "https://whitscustard.com/locations/granville", params={"formats": ["markdown"]}
     )
 
     # Then use Groq to extract structured data
-    system_message = """
+    system_message = f"""
     You're an expert at doing data extraction on website content into JSON format. 
     Extract all relevant business information including business name, address, phone, 
     operating hours, and menu items if available.
+
+    Return the data exactly matching this JSON schema:
+    {str(BusinessInfo.model_json_schema())}
     """
 
     completion = groq.chat.completions.create(
-        model="llama-3.1-70b-versatile",
         messages=[
             {"role": "system", "content": system_message},
             {"role": "user", "content": scrape_response["markdown"]},
@@ -77,60 +66,81 @@ def extract_using_scrape_and_llm():
         response_format={"type": "json_object"},
     )
 
+    result = json.loads(completion.choices[0].message.content)
+
+    # Validate against our Pydantic model
+    validated_result = BusinessInfo(**result).model_dump()
+
     # Save results
     with open("results/scrape_llm_results.txt", "w") as f:
-        f.write(completion.choices[0].message.content)
+        json.dump(validated_result, f, indent=2)
 
-    return json.loads(completion.choices[0].message.content)
+    print("✓ Scrape + LLM extraction completed")
+    return validated_result
 
 
-def extract_using_firecrawl_extract():
+async def extract_using_firecrawl_extract():
     """
     Extract information using Firecrawl's new extract endpoint
     """
+    print("Starting Firecrawl extract...")
     # Start extraction job
     extract_job = firecrawl.async_extract(
         ["https://whitscustard.com/locations/granville"],
         {
-            "prompt": "Extract all business information including name, address, phone number, operating hours, and menu items if available.",
+            "prompt": "Extract all business information including name, address, phone number, operating hours, and menu items. If there are no menu items, infer.",
             "schema": BusinessInfo.model_json_schema(),
         },
     )
 
-    print(extract_job)
+    print(f"Extract job created with ID: {extract_job['id']}")
 
     # Poll until job is complete
     while True:
         job_status = firecrawl.get_extract_status(extract_job["id"])
-        print(job_status)
+        print(f"Status: {job_status['status']}")
         if job_status["status"] == "completed":
             extract_response = job_status
             break
-        time.sleep(1)  # Wait 1 second before polling again
+        await asyncio.sleep(1)  # Use asyncio.sleep instead of time.sleep
 
     # Save results
-    with open("results/firecrawl_extract_results.txt", "w") as f:
+    with open("./results/firecrawl_extract_results.txt", "w") as f:
         json.dump(extract_response["data"], f, indent=2)
 
+    print("✓ Firecrawl extraction completed")
     return extract_response["data"]
 
 
-def main():
-    print("Extracting using scrape + LLM approach...")
-    scrape_llm_results = extract_using_scrape_and_llm()
-    print("Results saved to results/scrape_llm_results.txt")
+async def main():
+    print("Starting both extraction methods concurrently...")
 
-    print("\nExtracting using Firecrawl extract endpoint...")
-    firecrawl_extract_results = extract_using_firecrawl_extract()
-    print("Results saved to results/firecrawl_extract_results.txt")
+    # Run both extraction methods concurrently
+    scrape_llm_task = asyncio.create_task(extract_using_scrape_and_llm())
+    firecrawl_extract_task = asyncio.create_task(extract_using_firecrawl_extract())
 
-    # Compare results
-    print("\nComparison of extracted data:")
-    print("\nScrape + LLM approach found:")
-    print(json.dumps(scrape_llm_results, indent=2))
-    print("\nFirecrawl extract endpoint found:")
-    print(json.dumps(firecrawl_extract_results, indent=2))
+    try:
+        # Wait for both tasks to complete
+        scrape_llm_results, firecrawl_extract_results = await asyncio.gather(
+            scrape_llm_task, firecrawl_extract_task
+        )
+
+        print("\nBoth extractions completed successfully!")
+        print(
+            "\nResults saved to results/scrape_llm_results.txt and results/firecrawl_extract_results.txt"
+        )
+
+        # Compare results
+        print("\nComparison of extracted data:")
+        print("\nScrape + LLM approach found:")
+        print(json.dumps(scrape_llm_results, indent=2))
+        print("\nFirecrawl extract endpoint found:")
+        print(json.dumps(firecrawl_extract_results, indent=2))
+
+    except Exception as e:
+        print(f"\nAn error occurred: {str(e)}")
+        raise
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
