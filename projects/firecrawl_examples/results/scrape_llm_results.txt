@@ -1,7 +1,7 @@
 {
-  "business_name": "Whit's Frozen Custard of Granville",
-  "business_address": "226 E Broadway, GRANVILLE, OH 43023",
-  "menu_items": "Vanilla, Chocolate, and Flavor of the Week, with various fresh topping options",
-  "operating_hours": "Monday: 7:30am - 8:30 pm, Tuesday: 7:30am - 8:30 pm, Wednesday: 9:00am - 8:30 pm, Thursday: 7:30am - 8:30pm, Friday: 7:30am - 9:00pm, Saturday: 8:00am - 9:00pm, Sunday: 9:00am - 8:30 pm. Closed for the Season: December 22 - January 3",
-  "phone": "740-587-3620"
+  "business_name": "Whit's Frozen Custard",
+  "business_address": "Not available on this page, but can be found at https://whitscustard.com/findyourwhits",
+  "menu_items": "Not available on this page, but flavors can be found at https://whitscustard.com/flavor-of-the-week",
+  "operating_hours": "Not available on this page, but can be found at https://whitscustard.com/findyourwhits",
+  "phone": "Not available on this page"
 }

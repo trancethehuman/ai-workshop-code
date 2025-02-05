@@ -1,0 +1,827 @@
+{
+  "timestamp": "2025-02-05T11:20:08.299323",
+  "companies": {
+    "models": [
+      {
+        "model_name": "gpt-4o",
+        "input_price": 2.5,
+        "output_price": 10,
+        "additional_details": "Pricing with Batch API: $1.25 / 1M cached input tokens."
+      },
+      {
+        "model_name": "gpt-4o-2024-11-20",
+        "input_price": 2.5,
+        "output_price": 10,
+        "additional_details": "Pricing with Batch API: $1.25 / 1M cached input tokens."
+      },
+      {
+        "model_name": "gpt-4o-2024-08-06",
+        "input_price": 2.5,
+        "output_price": 10,
+        "additional_details": "Pricing with Batch API: $1.25 / 1M cached input tokens."
+      },
+      {
+        "model_name": "gpt-4o-audio-preview",
+        "input_price": 2.5,
+        "output_price": 10,
+        "additional_details": "Text pricing; Audio: $40.00 / 1M input tokens, $80.00 / 1M output tokens."
+      },
+      {
+        "model_name": "gpt-4o-mini",
+        "input_price": 0.15,
+        "output_price": 0.6,
+        "additional_details": "Pricing with Batch API: $0.075 / 1M cached input tokens."
+      },
+      {
+        "model_name": "gpt-4o-mini-2024-07-18",
+        "input_price": 0.15,
+        "output_price": 0.6,
+        "additional_details": "Pricing with Batch API: $0.075 / 1M cached input tokens."
+      },
+      {
+        "model_name": "gpt-4o-mini-audio-preview",
+        "input_price": 0.15,
+        "output_price": 0.6,
+        "additional_details": "Text pricing; Audio: $10.00 / 1M input tokens, $20.00 / 1M output tokens."
+      },
+      {
+        "model_name": "o1",
+        "input_price": 15,
+        "output_price": 60,
+        "additional_details": "Pricing with Batch API: $7.50 / 1M cached input tokens."
+      },
+      {
+        "model_name": "o1-2024-12-17",
+        "input_price": 15,
+        "output_price": 60,
+        "additional_details": "Pricing with Batch API: $7.50 / 1M cached input tokens."
+      },
+      {
+        "model_name": "o1-preview",
+        "input_price": 15,
+        "output_price": 60,
+        "additional_details": "Pricing with Batch API: $7.50 / 1M cached input tokens."
+      },
+      {
+        "model_name": "o3-mini",
+        "input_price": 1.1,
+        "output_price": 4.4,
+        "additional_details": "Pricing with Batch API: $0.55 / 1M cached input tokens."
+      },
+      {
+        "model_name": "o3-mini-2025-01-31",
+        "input_price": 1.1,
+        "output_price": 4.4,
+        "additional_details": "Pricing with Batch API: $0.55 / 1M cached input tokens."
+      },
+      {
+        "model_name": "text-embedding-3-small",
+        "input_price": 0.02,
+        "output_price": null,
+        "additional_details": "Pricing with Batch API: $0.01 / 1M tokens."
+      },
+      {
+        "model_name": "text-embedding-3-large",
+        "input_price": 0.13,
+        "output_price": null,
+        "additional_details": "Pricing with Batch API: $0.065 / 1M tokens."
+      },
+      {
+        "model_name": "ada v2",
+        "input_price": 0.1,
+        "output_price": null,
+        "additional_details": "Pricing with Batch API: $0.05 / 1M tokens."
+      },
+      {
+        "model_name": "gpt-4o-2024-08-06",
+        "input_price": 3.75,
+        "output_price": 15,
+        "additional_details": "Pricing with Batch API: $1.875 / 1M cached input tokens; $25.00 / 1M training tokens."
+      },
+      {
+        "model_name": "gpt-4o-mini-2024-07-18",
+        "input_price": 0.3,
+        "output_price": 1.2,
+        "additional_details": "Pricing with Batch API: $0.15 / 1M cached input tokens; $3.00 / 1M training tokens."
+      },
+      {
+        "model_name": "gpt-3.5-turbo",
+        "input_price": 3,
+        "output_price": 6,
+        "additional_details": "Pricing with Batch API: $1.5 / 1M cached input tokens; $8.00 / 1M training tokens."
+      },
+      {
+        "model_name": "davinci-002",
+        "input_price": 12,
+        "output_price": 12,
+        "additional_details": "Pricing with Batch API: $6.00 / 1M training tokens."
+      },
+      {
+        "model_name": "babbage-002",
+        "input_price": 1.6,
+        "output_price": 1.6,
+        "additional_details": "Pricing with Batch API: $0.8 / 1M training tokens."
+      },
+      {
+        "model_name": "gpt-4o",
+        "input_price": 2.5,
+        "output_price": 10,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "gpt-4o-2024-08-06",
+        "input_price": 2.5,
+        "output_price": 10,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "gpt-4o-audio-preview",
+        "input_price": 40,
+        "output_price": 80,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "gpt-4o-mini",
+        "input_price": 0.15,
+        "output_price": 0.6,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "gpt-4o-mini-2024-07-18",
+        "input_price": 0.15,
+        "output_price": 0.6,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "gpt-4o-realtime-preview",
+        "input_price": 5,
+        "output_price": 20,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "gpt-4o-mini-realtime-preview",
+        "input_price": 0.6,
+        "output_price": 2.4,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "o1",
+        "input_price": 15,
+        "output_price": 60,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "o3-mini",
+        "input_price": 1.1,
+        "output_price": 4.4,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "o1-mini",
+        "input_price": 1.1,
+        "output_price": 4.4,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "gpt-4o-2024-08-06",
+        "input_price": 25,
+        "output_price": 15,
+        "additional_details": "Fine tuning price per 1M tokens"
+      },
+      {
+        "model_name": "gpt-4o-mini-2024-07-18",
+        "input_price": 3,
+        "output_price": 1.2,
+        "additional_details": "Fine tuning price per 1M tokens"
+      },
+      {
+        "model_name": "gpt-3.5-turbo",
+        "input_price": 8,
+        "output_price": 6,
+        "additional_details": "Fine tuning price per 1M tokens"
+      },
+      {
+        "model_name": "davinci-002",
+        "input_price": 6,
+        "output_price": 12,
+        "additional_details": "Fine tuning price per 1M tokens"
+      },
+      {
+        "model_name": "babbage-002",
+        "input_price": 0.4,
+        "output_price": 1.6,
+        "additional_details": "Fine tuning price per 1M tokens"
+      },
+      {
+        "model_name": "chatgpt-4o-latest",
+        "input_price": 5,
+        "output_price": 15,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "gpt-4-turbo",
+        "input_price": 10,
+        "output_price": 30,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "gpt-4",
+        "input_price": 30,
+        "output_price": 60,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "gpt-4-32k",
+        "input_price": 60,
+        "output_price": 120,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "gpt-3.5-turbo",
+        "input_price": 0.5,
+        "output_price": 1.5,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "gpt-3.5-turbo-instruct",
+        "input_price": 1.5,
+        "output_price": 2,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "gpt-3.5-turbo-16k-0613",
+        "input_price": 3,
+        "output_price": 4,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "davinci-002",
+        "input_price": 2,
+        "output_price": 2,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "babbage-002",
+        "input_price": 0.4,
+        "output_price": 0.4,
+        "additional_details": "Price per 1M tokens"
+      },
+      {
+        "model_name": "gpt-4-turbo",
+        "input_price": 0.01,
+        "output_price": 0.03,
+        "additional_details": "$10.00 / 1 million prompt tokens; $30.00 / 1 million sampled tokens"
+      },
+      {
+        "model_name": "gpt-4",
+        "input_price": 0.03,
+        "output_price": 0.06,
+        "additional_details": "$30.00 / 1 million prompt tokens; $60.00 / 1 million sampled tokens"
+      },
+      {
+        "model_name": "gpt-4-32k",
+        "input_price": 0.06,
+        "output_price": 0.12,
+        "additional_details": "$60.00 / 1 million prompt tokens; $120.00 / 1 million sampled tokens"
+      },
+      {
+        "model_name": "GPT-4",
+        "input_price": 0.01,
+        "output_price": 0.03,
+        "additional_details": "Prices are per 1K tokens."
+      },
+      {
+        "model_name": "GPT-4 8k",
+        "input_price": 0.03,
+        "output_price": 0.06,
+        "additional_details": "3 cents per 1k tokens for the prompt, 6 cents per 1k tokens for the completion. Pricing information was last updated in May 2023."
+      },
+      {
+        "model_name": "GPT-3.5-turbo",
+        "input_price": 0.002,
+        "output_price": null,
+        "additional_details": "Pricing for GPT-3.5-turbo is 0.2 cents per 1k tokens for input, but output pricing is not specified."
+      },
+      {
+        "model_name": "gpt-3.5-turbo",
+        "input_price": 0.002,
+        "output_price": null,
+        "additional_details": "Pricing is the same for gpt-3.5-turbo-0301."
+      },
+      {
+        "model_name": "gpt-3.5-turbo-0301",
+        "input_price": 0.002,
+        "output_price": null,
+        "additional_details": "Assumed to be the same as gpt-3.5-turbo."
+      },
+      {
+        "model_name": "GPT-4",
+        "input_price": 0.03,
+        "output_price": 0.06,
+        "additional_details": "Pricing for the 8k context."
+      },
+      {
+        "model_name": "gpt-4o-2024-08-06",
+        "input_price": 3.75,
+        "output_price": 15,
+        "additional_details": "Pricing with Batch API: $1.875 / 1M cached input tokens."
+      },
+      {
+        "model_name": "gpt-4o-mini-2024-07-18",
+        "input_price": 0.3,
+        "output_price": 1.2,
+        "additional_details": "Pricing with Batch API: $0.15 / 1M cached input tokens."
+      },
+      {
+        "model_name": "gpt-3.5-turbo",
+        "input_price": 3,
+        "output_price": 6,
+        "additional_details": "Pricing with Batch API: $1.5 / 1M cached input tokens."
+      },
+      {
+        "model_name": "davinci-002",
+        "input_price": 12,
+        "output_price": 12,
+        "additional_details": "Pricing with Batch API: $6 / 1M cached input tokens."
+      },
+      {
+        "model_name": "babbage-002",
+        "input_price": 1.6,
+        "output_price": 1.6,
+        "additional_details": "Pricing with Batch API: $0.8 / 1M cached input tokens."
+      },
+      {
+        "model_name": "gpt-4o",
+        "input_price": 2.5,
+        "output_price": 10,
+        "additional_details": "Last updated on 2024-08-06"
+      },
+      {
+        "model_name": "gpt-4o-audio-preview",
+        "input_price": 2.5,
+        "output_price": 10,
+        "additional_details": "Last updated on 2024-12-17"
+      },
+      {
+        "model_name": "gpt-4o-realtime-preview",
+        "input_price": 5,
+        "output_price": 20,
+        "additional_details": "Last updated on 2024-12-17"
+      },
+      {
+        "model_name": "gpt-4o-mini",
+        "input_price": 0.15,
+        "output_price": 0.6,
+        "additional_details": "Last updated on 2024-07-18"
+      },
+      {
+        "model_name": "gpt-4o-mini-audio-preview",
+        "input_price": 0.15,
+        "output_price": 0.6,
+        "additional_details": "Last updated on 2024-12-17"
+      },
+      {
+        "model_name": "gpt-4o-mini-realtime-preview",
+        "input_price": 0.6,
+        "output_price": 2.4,
+        "additional_details": "Last updated on 2024-12-17"
+      },
+      {
+        "model_name": "o1",
+        "input_price": 15,
+        "output_price": 60,
+        "additional_details": "Last updated on 2024-12-17"
+      },
+      {
+        "model_name": "o3-mini",
+        "input_price": 1.1,
+        "output_price": 4.4,
+        "additional_details": "Last updated on 2025-01-31"
+      },
+      {
+        "model_name": "o1-mini",
+        "input_price": 1.1,
+        "output_price": 4.4,
+        "additional_details": "Last updated on 2024-09-12"
+      },
+      {
+        "model_name": "gpt-4o-2024-08-06",
+        "input_price": 3.75,
+        "output_price": 15,
+        "additional_details": "Training price $25.00 per 1M tokens."
+      },
+      {
+        "model_name": "gpt-4o-mini-2024-07-18",
+        "input_price": 0.3,
+        "output_price": 1.2,
+        "additional_details": "Training price $3.00 per 1M tokens."
+      },
+      {
+        "model_name": "gpt-3.5-turbo",
+        "input_price": 3,
+        "output_price": 6,
+        "additional_details": "Training price $8.00 per 1M tokens."
+      },
+      {
+        "model_name": "davinci-002",
+        "input_price": 12,
+        "output_price": 12,
+        "additional_details": "Training price $6.00 per 1M tokens."
+      },
+      {
+        "model_name": "babbage-002",
+        "input_price": 1.6,
+        "output_price": 1.6,
+        "additional_details": "Training price $0.40 per 1M tokens."
+      },
+      {
+        "model_name": "gpt-4o-audio-preview",
+        "input_price": 40,
+        "output_price": 80,
+        "additional_details": "Last updated on 2024-12-17."
+      },
+      {
+        "model_name": "gpt-4o-mini-audio-preview",
+        "input_price": 10,
+        "output_price": 20,
+        "additional_details": "Last updated on 2024-12-17."
+      },
+      {
+        "model_name": "gpt-4o-realtime-preview",
+        "input_price": 40,
+        "output_price": 80,
+        "additional_details": "Last updated on 2024-12-17."
+      },
+      {
+        "model_name": "gpt-4o-mini-realtime-preview",
+        "input_price": 10,
+        "output_price": 20,
+        "additional_details": "Last updated on 2024-12-17."
+      },
+      {
+        "model_name": "text-embedding-3-small",
+        "input_price": 0.02,
+        "output_price": null,
+        "additional_details": ""
+      },
+      {
+        "model_name": "text-embedding-3-large",
+        "input_price": 0.13,
+        "output_price": null,
+        "additional_details": ""
+      },
+      {
+        "model_name": "text-embedding-ada-002",
+        "input_price": 0.1,
+        "output_price": null,
+        "additional_details": ""
+      },
+      {
+        "model_name": "chatgpt-4o-latest",
+        "input_price": 5,
+        "output_price": 15,
+        "additional_details": ""
+      },
+      {
+        "model_name": "gpt-4-turbo",
+        "input_price": 10,
+        "output_price": 30,
+        "additional_details": "Last updated on 2024-04-09."
+      },
+      {
+        "model_name": "gpt-4",
+        "input_price": 30,
+        "output_price": 60,
+        "additional_details": "Last updated on 2024-06-13."
+      },
+      {
+        "model_name": "gpt-4-32k",
+        "input_price": 60,
+        "output_price": 120,
+        "additional_details": ""
+      },
+      {
+        "model_name": "gpt-3.5-turbo",
+        "input_price": 0.5,
+        "output_price": 1.5,
+        "additional_details": "Last updated on 2025-01-25."
+      },
+      {
+        "model_name": "gpt-3.5-turbo-instruct",
+        "input_price": 1.5,
+        "output_price": 2,
+        "additional_details": ""
+      },
+      {
+        "model_name": "gpt-3.5-turbo-16k-0613",
+        "input_price": 3,
+        "output_price": 4,
+        "additional_details": ""
+      },
+      {
+        "model_name": "davinci-002",
+        "input_price": 2,
+        "output_price": 2,
+        "additional_details": ""
+      },
+      {
+        "model_name": "babbage-002",
+        "input_price": 0.4,
+        "output_price": 0.4,
+        "additional_details": ""
+      },
+      {
+        "model_name": "gpt-4",
+        "input_price": 0.03,
+        "output_price": 0.06,
+        "additional_details": "Pricing is based on token usage, with 95% of tokens typically being prompt tokens."
+      },
+      {
+        "model_name": "gpt-3.5-turbo-16k",
+        "input_price": 0.02,
+        "output_price": 0.04,
+        "additional_details": "Pricing may vary based on usage and model selection."
+      },
+      {
+        "model_name": "gpt-4o-mini-2024-07-18",
+        "input_price": 0.15,
+        "output_price": 0.6,
+        "additional_details": "$0.150 / 1M input tokens, $0.600 / 1M output tokens, $0.075 / 1M cached input tokens"
+      },
+      {
+        "model_name": "GPT-4",
+        "input_price": 0.03,
+        "output_price": 0.06,
+        "additional_details": "Pricing updated as of October 2023."
+      },
+      {
+        "model_name": "GPT-3.5 Turbo",
+        "input_price": 0.002,
+        "output_price": 0.002,
+        "additional_details": "Pricing updated as of October 2023."
+      },
+      {
+        "model_name": "GPT-4",
+        "input_price": 0.00253714032,
+        "output_price": 0.00253714032,
+        "additional_details": "Rumored to be a MoE model consisting of 8x 222B model, using two experts (444B) when completing a token."
+      },
+      {
+        "model_name": "GPT-3.5",
+        "input_price": 0.001,
+        "output_price": 0.001,
+        "additional_details": "Price based on calculations from the model's specifications."
+      },
+      {
+        "model_name": "GPT-3.5-turbo-0613",
+        "input_price": 0.001,
+        "output_price": 0.002,
+        "additional_details": ""
+      },
+      {
+        "model_name": "GPT-3.5-turbo-1106",
+        "input_price": 0.001,
+        "output_price": 0.002,
+        "additional_details": ""
+      },
+      {
+        "model_name": "OpenAI o1",
+        "input_price": 15,
+        "output_price": 60,
+        "additional_details": "$7.50 / 1M tokens for cached input."
+      },
+      {
+        "model_name": "OpenAI o3-mini",
+        "input_price": 1.1,
+        "output_price": 4.4,
+        "additional_details": "$0.55 / 1M tokens for cached input."
+      },
+      {
+        "model_name": "GPT-4o",
+        "input_price": 2.5,
+        "output_price": 10,
+        "additional_details": "$1.25 / 1M tokens for cached input."
+      },
+      {
+        "model_name": "GPT-4o mini",
+        "input_price": 0.15,
+        "output_price": 0.6,
+        "additional_details": "$0.075 / 1M tokens for cached input."
+      },
+      {
+        "model_name": "GPT-4o Fine-tuning",
+        "input_price": 3.75,
+        "output_price": 15,
+        "additional_details": "$1.875 / 1M tokens for cached input; $25.00 / 1M tokens for training."
+      },
+      {
+        "model_name": "GPT-4o mini Fine-tuning",
+        "input_price": 0.3,
+        "output_price": 1.2,
+        "additional_details": "$0.15 / 1M tokens for cached input; $3.00 / 1M tokens for training."
+      },
+      {
+        "model_name": "GPT-4o Realtime API",
+        "input_price": 5,
+        "output_price": 20,
+        "additional_details": "$2.50 / 1M tokens for cached input."
+      },
+      {
+        "model_name": "GPT-4o mini Realtime API",
+        "input_price": 0.6,
+        "output_price": 2.4,
+        "additional_details": "$0.30 / 1M tokens for cached input."
+      },
+      {
+        "model_name": "GPT-4o Audio",
+        "input_price": 40,
+        "output_price": 80,
+        "additional_details": "$2.50 / 1M tokens for cached input."
+      },
+      {
+        "model_name": "GPT-4o mini Audio",
+        "input_price": 10,
+        "output_price": 20,
+        "additional_details": "$0.30 / 1M tokens for cached input."
+      },
+      {
+        "model_name": "gpt-4o",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "The knowledge cutoff for GPT-4o models is October, 2023."
+      },
+      {
+        "model_name": "gpt-4o-mini",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "The knowledge cutoff for GPT-4o-mini models is October, 2023."
+      },
+      {
+        "model_name": "o1",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "The knowledge cutoff for o1 models is October, 2023."
+      },
+      {
+        "model_name": "o1-mini",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "The knowledge cutoff for o1-mini models is October, 2023."
+      },
+      {
+        "model_name": "o3-mini",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "The knowledge cutoff for o3-mini models is October, 2023."
+      },
+      {
+        "model_name": "gpt-4o-realtime-preview",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "The knowledge cutoff for GPT-4o Realtime models is October, 2023."
+      },
+      {
+        "model_name": "gpt-4o-audio-preview",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "The knowledge cutoff for GPT-4o Audio models is October, 2023."
+      },
+      {
+        "model_name": "gpt-4-turbo",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "The knowledge cutoff for the latest GPT-4 Turbo version is December, 2023."
+      },
+      {
+        "model_name": "gpt-3.5-turbo",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "As of July 2024, gpt-4o-mini should be used in place of gpt-3.5-turbo."
+      },
+      {
+        "model_name": "dall-e-3",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "DALL\u00b7E 3 is available through the Images API."
+      },
+      {
+        "model_name": "tts-1",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "The latest text to speech model, optimized for speed."
+      },
+      {
+        "model_name": "whisper-1",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "Whisper is a general-purpose speech recognition model."
+      },
+      {
+        "model_name": "text-embedding-3-large",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "Most capable embedding model for both English and non-English tasks."
+      },
+      {
+        "model_name": "text-embedding-3-small",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "Increased performance over 2nd generation ada embedding model."
+      },
+      {
+        "model_name": "text-embedding-ada-002",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "Most capable 2nd generation embedding model, replacing 16 first generation models."
+      },
+      {
+        "model_name": "omni-moderation-latest",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "Currently points to omni-moderation-2024-09-26."
+      },
+      {
+        "model_name": "text-moderation-latest",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "Currently points to text-moderation-007."
+      },
+      {
+        "model_name": "babbage-002",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "Replacement for the GPT-3 ada and babbage base models."
+      },
+      {
+        "model_name": "davinci-002",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "Replacement for the GPT-3 curie and davinci base models."
+      },
+      {
+        "model_name": "deepseek-chat",
+        "input_price": 0.014,
+        "output_price": 0.28,
+        "additional_details": "\u4f18\u60e0\u524d\u4ef7\u683c\u4e3a0.07\u7f8e\u5143\uff0c\u4f18\u60e0\u81f32025-02-08 24:00\u3002"
+      },
+      {
+        "model_name": "deepseek-reasoner",
+        "input_price": 0.14,
+        "output_price": 2.19,
+        "additional_details": "\u4f18\u60e0\u524d\u4ef7\u683c\u4e3a0.14\u7f8e\u5143\uff0c\u4f18\u60e0\u81f32025-02-08 24:00\u3002"
+      },
+      {
+        "model_name": "deepseek-chat",
+        "input_price": 0.014,
+        "output_price": 0.28,
+        "additional_details": "Discounted price until 2025-02-08 16:00 (UTC). Original price was $0.07 for cache hit and $1.10 for output."
+      },
+      {
+        "model_name": "deepseek-reasoner",
+        "input_price": 0.14,
+        "output_price": 2.19,
+        "additional_details": "Discounted price until 2025-02-08 16:00 (UTC). Original price was $0.55 for cache miss and includes all tokens from CoT and the final answer."
+      },
+      {
+        "model_name": "Gemini 1.5 Flash",
+        "input_price": 0.075,
+        "output_price": 0.3,
+        "additional_details": "Free tier available with lower rate limits. Tuning service is free of charge."
+      },
+      {
+        "model_name": "Gemini 1.5 Flash-8B",
+        "input_price": 0.0375,
+        "output_price": 0.15,
+        "additional_details": "Free tier available with lower rate limits. Tuning service is free of charge."
+      },
+      {
+        "model_name": "Gemini 1.5 Pro",
+        "input_price": 1.25,
+        "output_price": 5,
+        "additional_details": "Free tier available with lower rate limits. Tuning service is not available."
+      },
+      {
+        "model_name": "Gemini 1.0 Pro",
+        "input_price": 0.5,
+        "output_price": 1.5,
+        "additional_details": "Free tier available with lower rate limits. Tuning service is not available."
+      },
+      {
+        "model_name": "Text Embedding 004",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "Free tier available with lower rate limits. Tuning service is not applicable."
+      },
+      {
+        "model_name": "Gemini API",
+        "input_price": null,
+        "output_price": null,
+        "additional_details": "Pricing is based on input token count, output token count, cached token count, and cached token storage duration. For specific pricing details, refer to the pricing page."
+      }
+    ],
+    "company_name": "OpenAI",
+    "last_updated": "2025-02-05T16:19:54.934Z"
+  },
+  "extraction_method": "batch",
+  "execution_time": 100.79414796829224
+}

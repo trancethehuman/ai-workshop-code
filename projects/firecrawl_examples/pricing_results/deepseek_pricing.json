@@ -1,0 +1,30 @@
+{
+  "models": [
+    {
+      "model_name": "deepseek-chat",
+      "input_price": 0.014,
+      "output_price": 0.28,
+      "additional_details": "\u4f18\u60e0\u524d\u4ef7\u683c\u4e3a0.07\u7f8e\u5143\uff0c\u4f18\u60e0\u540e\u4ef7\u683c\u4e3a0.014\u7f8e\u5143\u3002\u4f18\u60e0\u6709\u6548\u671f\u81f32025-02-08 24:00\u3002"
+    },
+    {
+      "model_name": "deepseek-reasoner",
+      "input_price": 0.14,
+      "output_price": 2.19,
+      "additional_details": "\u4f18\u60e0\u524d\u4ef7\u683c\u4e3a1\u7f8e\u5143\uff0c\u4f18\u60e0\u540e\u4ef7\u683c\u4e3a0.14\u7f8e\u5143\u3002\u4f18\u60e0\u6709\u6548\u671f\u81f32025-02-08 24:00\u3002"
+    },
+    {
+      "model_name": "deepseek-chat",
+      "input_price": 0.014,
+      "output_price": 0.28,
+      "additional_details": "Discounted price until 2025-02-08 16:00 (UTC). Original price was $0.07 for cache hit and $1.10 for output."
+    },
+    {
+      "model_name": "deepseek-reasoner",
+      "input_price": 0.14,
+      "output_price": 2.19,
+      "additional_details": "Discounted price until 2025-02-08 16:00 (UTC). Original price was $0.55 for cache miss and $2.19 for output."
+    }
+  ],
+  "company_name": "DeepSeek",
+  "last_updated": "2025-01-20T00:00:00Z"
+}

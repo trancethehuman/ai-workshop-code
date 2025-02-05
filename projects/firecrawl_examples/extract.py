@@ -64,6 +64,7 @@ async def extract_using_scrape_and_llm():
         temperature=0,
         max_tokens=8000,
         response_format={"type": "json_object"},
+        model="llama-3.3-70b-versatile",
     )
 
     result = json.loads(completion.choices[0].message.content)

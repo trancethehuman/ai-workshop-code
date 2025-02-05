@@ -1,0 +1,36 @@
+{
+  "models": [
+    {
+      "model_name": "Gemini 1.5 Flash",
+      "input_price": 0.075,
+      "output_price": 0.3,
+      "additional_details": "Free tier available with lower rate limits. Tuning service is free of charge."
+    },
+    {
+      "model_name": "Gemini 1.5 Flash-8B",
+      "input_price": 0.0375,
+      "output_price": 0.15,
+      "additional_details": "Free tier available with lower rate limits. Tuning service is free of charge."
+    },
+    {
+      "model_name": "Gemini 1.5 Pro",
+      "input_price": 1.25,
+      "output_price": 5,
+      "additional_details": "Free tier available with lower rate limits. Tuning service is not available."
+    },
+    {
+      "model_name": "Gemini 1.0 Pro",
+      "input_price": 0.5,
+      "output_price": 1.5,
+      "additional_details": "Free tier available with lower rate limits. Tuning service is not available."
+    },
+    {
+      "model_name": "Text Embedding 004",
+      "input_price": null,
+      "output_price": null,
+      "additional_details": "Free tier available with lower rate limits. Tuning service is not applicable."
+    }
+  ],
+  "company_name": "Google",
+  "last_updated": "2025-02-05T16:18:56.607Z"
+}
