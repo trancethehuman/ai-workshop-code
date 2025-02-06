@@ -19,4 +19,7 @@ dependencies = [
     "anthropic>=0.40.0",
     "judges>=0.0.5",
     "groq>=0.15.0",
+    "langgraph>=0.2.69",
+    "langchain-core>=0.3.33",
+    "langchain-anthropic>=0.3.0",
 ]
