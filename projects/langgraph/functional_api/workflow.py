@@ -1,7 +1,7 @@
 from langgraph.func import entrypoint
 from langgraph.types import interrupt
 from langgraph.checkpoint.memory import MemorySaver
-from tasks import generate_essay, rework_essay
+from .tasks import generate_essay, rework_essay
 
 
 @entrypoint(checkpointer=MemorySaver())
@@ -23,12 +23,14 @@ def workflow(
     if previous is not None:
         topic = previous.get("topic", initial_topic)
         drafts = previous.get("drafts", [])
+        messages = previous.get("messages", [])
         essay = drafts[-1] if drafts else generate_essay(topic).result()
         if not drafts:
             drafts.append(essay)
     else:
         topic = initial_topic
         drafts = []
+        messages = []
         essay = generate_essay(topic).result()
         drafts.append(essay)
 
@@ -38,9 +40,10 @@ def workflow(
             "topic": topic,
             "current_essay": essay,
             "drafts": drafts,
+            "messages": messages,
             "action": (
                 "Do you approve the essay? If yes, type 'yes'. Otherwise, "
-                "enter your revision feedback to improve the essay."
+                "enter your revision feedback."
             ),
         }
         # Pause execution and send payload for human-in-the-loop review.
@@ -48,16 +51,20 @@ def workflow(
 
         # If the user replies 'yes' (approval), finish the workflow.
         if isinstance(user_input, str) and user_input.lower() == "yes":
+            messages.append("User approved the essay")
             final_result = {
                 "final_essay": essay,
                 "approved": True,
                 "all_drafts": drafts,
+                "message_history": messages,
             }
             return entrypoint.final(
-                value=final_result, save={"topic": topic, "drafts": drafts}
+                value=final_result,
+                save={"topic": topic, "drafts": drafts, "messages": messages},
             )
         else:
             # Otherwise, use the provided feedback for revision.
             feedback = user_input if isinstance(user_input, str) else str(user_input)
+            messages.append(f"User feedback: {feedback}")
             essay = rework_essay(essay, topic, feedback).result()
             drafts.append(essay)

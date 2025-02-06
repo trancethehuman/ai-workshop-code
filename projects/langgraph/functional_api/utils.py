@@ -7,10 +7,15 @@ def display_workflow_state(payload: Dict) -> None:
     print("Topic:", payload.get("topic"))
     print("Current Essay:")
     print(payload.get("current_essay"))
-    print("Past Drafts:")
+    print("\nPast Drafts:")
     for i, draft in enumerate(payload.get("drafts", [])):
         # Display a truncated version of each draft.
         print(f"{i + 1}: {draft[: len(draft) // 10]}...")
+
+    messages = payload.get("messages", [])
+    if messages:
+        print("\nMessage History:")
+        print(format_message_history(messages))
 
 
 def get_initial_topic() -> str:
