@@ -1,7 +1,7 @@
 from langgraph.func import entrypoint
 from langgraph.types import interrupt
 from langgraph.checkpoint.memory import MemorySaver
-from .tasks import generate_essay, rework_essay
+from tasks import generate_essay, rework_essay
 
 
 @entrypoint(checkpointer=MemorySaver())

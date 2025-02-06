@@ -1,6 +1,6 @@
 from langgraph.func import task
-from .gemini_client import model
-from .utils import display_task_header
+from gemini_client import model
+from utils import display_task_header
 
 
 @task
