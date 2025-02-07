@@ -182,7 +182,7 @@ if __name__ == "__main__":
             if snapshot.values is not None:
                 print(f"\n{idx}. Checkpoint created at {snapshot.created_at}:")
                 print(
-                    f"   Checkpoint ID: {snapshot.config['configurable']['checkpoint_id']}"
+                    f"   Checkpoint ID: {snapshot.config.get('configurable', {}).get('checkpoint_id')}"
                 )
                 print(f"   Values: {snapshot.values}")
         print("----- End of this iteration -----\n")
