@@ -115,11 +115,6 @@ def workflow(
             "action": "Please approve this one-liner by typing 'yes' or provide your feedback for revision.",
         }
     )
-    # If no resume value is provided by the client, fall back to manual input.
-    if approval is None:
-        approval = input(
-            "Interrupt Resume - Please type 'yes' to approve or provide feedback: "
-        ).strip()
 
     # --- Step 3: Decide Based on Human Input ---
     if approval.lower() == "yes":
