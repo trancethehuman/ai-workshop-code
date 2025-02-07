@@ -1,0 +1,19 @@
+{
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.variableTypes": true,
+  "python.languageServer": "Pylance",
+  "editor.rulers": [88],
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.importFormat": "absolute",
+  "python.analysis.indexing": true,
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.diagnosticMode": "workspace",
+  "python.analysis.useLibraryCodeForTypes": true,
+  "python.defaultInterpreterPath": "${workspaceFolder}/projects/.venv/bin/python",
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/projects",
+    "${workspaceFolder}/projects/.venv/lib/python3.12/site-packages"
+  ],
+  "python.analysis.exclude": ["**/.git", "**/.venv", "**/node_modules"]
+}

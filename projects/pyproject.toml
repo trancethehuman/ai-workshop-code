@@ -22,4 +22,5 @@ dependencies = [
     "langgraph>=0.2.69",
     "langchain-core>=0.3.33",
     "langchain-anthropic>=0.3.0",
+    "google-genai>=1.0.0",
 ]

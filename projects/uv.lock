@@ -387,6 +387,21 @@ wheels = [
 ]
 
 [[package]]
+name = "google-genai"
+version = "1.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "google-auth" },
+    { name = "pydantic" },
+    { name = "requests" },
+    { name = "websockets" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/2f/c3/fba38ba11a9b97b0a6ca6d46ec0dcd3c7bdf3ecf83eec6e6117ac25106c7/google_genai-1.0.0.tar.gz", hash = "sha256:15712abb808f891a14eafc9edf21b8cf92ea952f627dd0e2e939657efd234acd", size = 122958 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/24/9d/63dbd2b6c630f44cbbf09c4e04b4c9012da01f6e585d34ae53d07931bb67/google_genai-1.0.0-py3-none-any.whl", hash = "sha256:e9c3abd48f46ecb2b0a51efa7f65c6830b50f9784df603a91019b43918a7531f", size = 129418 },
+]
+
+[[package]]
 name = "google-generativeai"
 version = "0.8.3"
 source = { registry = "https://pypi.org/simple" }
@@ -919,6 +934,7 @@ dependencies = [
     { name = "anthropic" },
     { name = "exa-py" },
     { name = "firecrawl" },
+    { name = "google-genai" },
     { name = "google-generativeai" },
     { name = "groq" },
     { name = "judges" },
@@ -940,6 +956,7 @@ requires-dist = [
     { name = "anthropic", specifier = ">=0.40.0" },
     { name = "exa-py", specifier = ">=1.6.0" },
     { name = "firecrawl", specifier = ">=1.10.2" },
+    { name = "google-genai", specifier = ">=1.0.0" },
     { name = "google-generativeai", specifier = ">=0.8.3" },
     { name = "groq", specifier = ">=0.15.0" },
     { name = "judges", specifier = ">=0.0.5" },
