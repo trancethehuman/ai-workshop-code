@@ -1,7 +1,6 @@
 from asyncio import Future
 import os
 import uuid
-from datetime import datetime
 from dotenv import load_dotenv
 
 from google import genai
@@ -9,31 +8,33 @@ from google.genai import types
 
 from langgraph.func import entrypoint, task
 from langgraph.checkpoint.memory import MemorySaver
+from langgraph.types import StateSnapshot, interrupt, Command
 
 # Load environment variables (e.g., GEMINI_API_KEY)
 load_dotenv()
 
 # Create a client for the Gemini Developer API.
-# Note: We set the API version to 'v1alpha' per the instructions.
+# We set the API version to 'v1alpha' as per the instructions.
 client = genai.Client(
     api_key=os.environ["GEMINI_API_KEY"], http_options={"api_version": "v1alpha"}
 )
 
 
 # ------------------------------------------------------------------------------
-# Helper function to generate content via the Gemini API.
+# Helper Function to Generate Content via Gemini
 # ------------------------------------------------------------------------------
 def gemini_generate(prompt: str) -> str:
     """
     Generates content using the Gemini model.
-    Uses the provided prompt along with a system instruction.
+    The provided prompt is combined with a system instruction.
     """
     response = client.models.generate_content(
         model="gemini-2.0-flash-lite-preview-02-05",
         contents=prompt,
         config=types.GenerateContentConfig(
             system_instruction=(
-                "You're an expert at writing jokes. Your jokes are always one-liner. "
+                "You're an expert at writing jokes. Your jokes are always one-liner and 4 words. "
+                "You never start with the same premise for jokes. "
                 "You must respond with only the joke."
             ),
             temperature=1,
@@ -48,126 +49,93 @@ def gemini_generate(prompt: str) -> str:
 
 
 # ------------------------------------------------------------------------------
-# Define Tasks
+# Define Tasks (without manually generating checkpoint IDs or timestamps)
 # ------------------------------------------------------------------------------
 
 
 @task
 def generate_oneliner(word: str) -> dict:
     """
-    Task to generate a creative one-liner from the given word using Gemini.
-    Returns a Future containing a dictionary with the generated draft and a checkpoint ID.
+    Generates a creative one-liner using the provided word.
+    Returns a dictionary with the generated draft.
     """
     prompt = f"Write a creative one-liner using the word '{word}'."
     draft = gemini_generate(prompt)
-    cp_id = str(uuid.uuid4())
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    return {"draft": draft, "checkpoint_id": cp_id, "timestamp": timestamp}
+    return {"draft": draft}
 
 
 @task
 def revise_oneliner(original: str, feedback: str) -> dict:
     """
-    Task to revise the one-liner based on the provided feedback using Gemini.
-    Returns a dictionary with the revised draft and a new simulated checkpoint ID.
+    Revises the one-liner based on human feedback.
+    Returns a dictionary with the revised draft.
     """
     prompt = (
-        f"Revise the following one-liner based on this feedback.\n\n"
+        f"Revise the following one-liner based on this feedback. Don't write a similar joke.\n\n"
         f"Feedback: {feedback}\n"
         f"Original: {original}\n\n"
         f"Revised one-liner:"
     )
     revised = gemini_generate(prompt)
-    cp_id = str(uuid.uuid4())
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    return {"revised": revised, "checkpoint_id": cp_id, "timestamp": timestamp}
+    return {"revised": revised}
 
 
 # ------------------------------------------------------------------------------
-# Define the main workflow as an entrypoint.
+# Define the Main Workflow as an Entrypoint
 # ------------------------------------------------------------------------------
 @entrypoint(checkpointer=MemorySaver())
 def workflow(
     user_input: str, previous: dict | None = None
 ) -> entrypoint.final[dict, dict]:
     """
-    Workflow:
-      1. Generates a draft one-liner from the input word.
-      2. Asks for human approval (or feedback) to decide whether to revise.
-      3. Returns a dict with the final draft and an aggregated history of all checkpoints.
+    Workflow steps:
+      1. Generate a one-liner based on the input word.
+      2. Use the LangGraph interrupt mechanism to request human review.
+      3. If approved (input equals 'yes'), accept the generated draft.
+         Otherwise, revise the draft based on the provided feedback.
+      4. Return the final draft.
 
-    The aggregated history is preserved via the same thread ID across iterations.
+    Using the same thread ID across invocations enables state persistence ("time travel").
     """
-    # Retrieve aggregated history from previous checkpoint, if available.
-    aggregated = previous if previous is not None else {"checkpoints": []}
-    current_checkpoints = []  # Checkpoints for the current iteration
-
-    # --- Step 1: Generate the initial one-liner ---
+    # (Optionally, you could inspect the previous state here if needed.)
     gen_result = generate_oneliner(user_input).result()
     draft = gen_result["draft"]
-    cp_gen = gen_result["checkpoint_id"]
-    current_checkpoints.append(
-        {
-            "task": "generate_oneliner",
-            "checkpoint_id": cp_gen,
-            "content": draft,
-            "timestamp": gen_result["timestamp"],
-        }
-    )
-    print(f"\n[Checkpoint] generate_oneliner -> Checkpoint ID: {cp_gen}")
-    print("Generated Draft:")
+    print("\nGenerated Draft:")
     print(draft)
 
-    # --- Step 2: Human-in-the-loop approval ---
-    print("\nPlease review the generated one-liner above.")
-    print("Type 'yes' to approve or type your feedback for revision.")
-    approval = input("Your response: ").strip()
+    # --- Step 2: Human-in-the-Loop Approval using interrupt ---
+    # This will raise a GraphInterrupt on first execution and then, on resume (via Command),
+    # it will return the human-provided value.
+    approval = interrupt(
+        {
+            "generated_draft": draft,
+            "action": "Please approve this one-liner by typing 'yes' or provide your feedback for revision.",
+        }
+    )
+    # If no resume value is provided by the client, fall back to manual input.
+    if approval is None:
+        approval = input(
+            "Interrupt Resume - Please type 'yes' to approve or provide feedback: "
+        ).strip()
 
-    # --- Step 3: Revise if needed ---
+    # --- Step 3: Decide Based on Human Input ---
     if approval.lower() == "yes":
         final_draft = draft
         print("Draft approved.")
     else:
-        task_response = revise_oneliner(draft, approval)
-        rev_result = task_response.result()
+        rev_result = revise_oneliner(draft, approval).result()
         final_draft = rev_result["revised"]
-        cp_rev = rev_result["checkpoint_id"]
-        current_checkpoints.append(
-            {
-                "task": "revise_oneliner",
-                "checkpoint_id": cp_rev,
-                "content": final_draft,
-                "timestamp": rev_result["timestamp"],
-            }
-        )
-        print(f"\n[Checkpoint] revise_oneliner -> Checkpoint ID: {cp_rev}")
         print("Revised Draft:")
         print(final_draft)
 
-    # --- Final checkpoint for the current iteration ---
-    cp_final = str(uuid.uuid4())
-    current_checkpoints.append(
-        {
-            "task": "final_draft",
-            "checkpoint_id": cp_final,
-            "content": final_draft,
-            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        }
-    )
-    print(f"\n[Checkpoint] final_draft -> Checkpoint ID: {cp_final}")
-
-    # Merge previous aggregated checkpoints with the current iteration's checkpoints.
-    aggregated_checkpoints = aggregated.get("checkpoints", []) + current_checkpoints
-
-    final_output = {"final_draft": final_draft, "checkpoints": aggregated_checkpoints}
-    # Save the updated aggregated history in the checkpoint.
+    # Return the final draft; additional state (including checkpoint metadata) is managed by LangGraph.
     return entrypoint.final(
-        value=final_output, save={"checkpoints": aggregated_checkpoints}
+        value={"final_draft": final_draft}, save={"final_draft": final_draft}
     )
 
 
 # ------------------------------------------------------------------------------
-# Main execution block with looping.
+# Main Execution Block with Looping (Using the Same Thread ID for Persistent State)
 # ------------------------------------------------------------------------------
 if __name__ == "__main__":
     # Use a single thread ID for all iterations so that the entire checkpoint history is maintained.
@@ -178,22 +146,43 @@ if __name__ == "__main__":
         user_word = input("Enter a word: ").strip()
         if user_word.lower() == "quit":
             break
-        # Invoke the workflow synchronously with the same thread ID.
-        result = workflow.invoke(user_word, {"configurable": {"thread_id": thread_id}})
 
-        # Display the final draft and the aggregated checkpoint history.
+        # Invoke the workflow with the given word using the same thread ID.
+        result = workflow.invoke(user_word, {"configurable": {"thread_id": thread_id}})
+        # If the workflow was interrupted and did not complete, result will be None.
+        if result is None:
+            # Retrieve the saved state.
+            last_state = workflow.get_state({"configurable": {"thread_id": thread_id}})
+            # Try to extract the interrupt payload via the state's helper (if available).
+            interrupt_state = getattr(last_state, "get_interrupt", lambda: None)()
+            if interrupt_state is not None:
+                resume_value = input(f"{interrupt_state['action']}\n").strip()
+            else:
+                resume_value = input(
+                    "Please approve this one-liner by typing 'yes' or provide feedback: "
+                ).strip()
+            result = workflow.invoke(
+                Command(resume=resume_value), {"configurable": {"thread_id": thread_id}}
+            )
+        if result is None:
+            result = workflow.get_state({"configurable": {"thread_id": thread_id}})
+
+        # Display the final draft.
         print("\n=== Workflow Result ===")
         print("Final Draft:")
         print(result["final_draft"])
-        print("\nAggregated Checkpoints:")
-        for idx, cp in enumerate(result["checkpoints"], 1):
-            content = cp["content"]
-            # Truncate content to first 30 chars and add ellipsis if needed
-            truncated_content = content[:30] + ("..." if len(content) > 30 else "")
-            print(f"[{idx}]")
-            print(f"Time: {cp['timestamp']}")
-            print(f"Task: {cp['task']}")
-            print(f"ID: {cp['checkpoint_id']}")
-            print(f"Content: {truncated_content}\n")
 
+        # Retrieve and display checkpoint (state history) data as generated by LangGraph.
+        state_history = list(
+            workflow.get_state_history({"configurable": {"thread_id": thread_id}})
+        )
+        print("\nAggregated Checkpoints from State History:")
+        for idx, snapshot in enumerate(state_history, 1):
+            # Each snapshot is a StateSnapshot with attributes like values, config, metadata, created_at, etc.
+            if snapshot.values is not None:
+                print(f"\n{idx}. Checkpoint created at {snapshot.created_at}:")
+                print(
+                    f"   Checkpoint ID: {snapshot.config['configurable']['checkpoint_id']}"
+                )
+                print(f"   Values: {snapshot.values}")
         print("----- End of this iteration -----\n")
