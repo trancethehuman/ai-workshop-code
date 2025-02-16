@@ -28,4 +28,4 @@ dependencies = [
 ]
 
 [tool.uv.workspace]
-members = ["mcp", "mcp_examples", "workflow_v_agent"]
+members = ["mcp", "mcp_examples", "workflow_v_agent/python_version"]

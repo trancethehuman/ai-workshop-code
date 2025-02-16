@@ -1565,7 +1565,7 @@ wheels = [
 [[package]]
 name = "workflow-v-agent"
 version = "0.1.0"
-source = { virtual = "workflow_v_agent" }
+source = { virtual = "workflow_v_agent/python_version" }
 dependencies = [
     { name = "google-genai" },
     { name = "python-dotenv" },

@@ -1,0 +1,16 @@
+{
+  "name": "node_version",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ai-sdk/google": "^1.1.14",
+    "ai": "^4.1.41"
+  }
+}
