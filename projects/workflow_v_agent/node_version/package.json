@@ -1,16 +1,24 @@
 {
-  "name": "node_version",
+  "name": "cat-haiku-generator",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "module",
+  "description": "A cat-themed haiku generator using Gemini AI",
+  "main": "main.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node main.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@ai-sdk/google": "^1.1.14",
-    "ai": "^4.1.41"
+    "ai": "latest",
+    "@ai-sdk/google": "latest",
+    "chalk": "latest",
+    "dotenv": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
   }
 }
