@@ -1567,12 +1567,14 @@ name = "workflow-v-agent"
 version = "0.1.0"
 source = { virtual = "workflow_v_agent/python_version" }
 dependencies = [
+    { name = "colorama" },
     { name = "google-genai" },
     { name = "python-dotenv" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "colorama", specifier = ">=0.4.6" },
     { name = "google-genai", specifier = ">=1.2.0" },
     { name = "python-dotenv", specifier = ">=1.0.0" },
 ]
