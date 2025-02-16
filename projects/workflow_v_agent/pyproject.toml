@@ -1,0 +1,10 @@
+[project]
+name = "workflow-v-agent"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "google-genai>=1.2.0",
+    "python-dotenv>=1.0.0",
+]
