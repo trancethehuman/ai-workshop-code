@@ -10,10 +10,17 @@
   "python.analysis.autoSearchPaths": true,
   "python.analysis.diagnosticMode": "workspace",
   "python.analysis.useLibraryCodeForTypes": true,
-  "python.defaultInterpreterPath": "${workspaceFolder}/projects/.venv/bin/python",
-  "python.analysis.extraPaths": [
-    "${workspaceFolder}/projects",
-    "${workspaceFolder}/projects/.venv/lib/python3.12/site-packages"
-  ],
-  "python.analysis.exclude": ["**/.git", "**/.venv", "**/node_modules"]
+  "python.defaultInterpreterPath": null,
+  "python.terminal.activateEnvironment": true,
+  "python.analysis.extraPaths": [],
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python"
+  },
+  "python.analysis.exclude": ["**/.git", "**/.venv", "**/node_modules"],
+  "python.venvPath": "${workspaceFolder}/projects",
+  "python.analysis.stubPath": "${workspaceFolder}/.vscode/stubs",
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.pytest_cache": true
+  }
 }
