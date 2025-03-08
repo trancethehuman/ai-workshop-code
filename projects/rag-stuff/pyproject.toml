@@ -9,4 +9,5 @@ dependencies = [
     "litellm",
     "requests",
     "python-dotenv",
+    "cohere>=5.14.0",
 ]
