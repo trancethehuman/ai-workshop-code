@@ -4,3 +4,57 @@ __pycache__/
 **/__pycache__/
 node_modules/
 **/node_modules/
+# Environment variables
+.env
+**/.env
+.env.local
+**/.env.local
+.env.development
+**/.env.development
+.env.test
+**/.env.test
+.env.production
+**/.env.production
+.env.development.local
+**/.env.development.local
+.env.test.local
+**/.env.test.local
+.env.production.local
+**/.env.production.local
+
+# Build directories
+dist/
+**/dist/
+build/
+**/build/
+out/
+**/out/
+
+# Logs
+logs/
+**/logs/
+*.log
+**/*.log
+npm-debug.log*
+**/npm-debug.log*
+yarn-debug.log*
+**/yarn-debug.log*
+yarn-error.log*
+**/yarn-error.log*
+
+# OS specific files
+.DS_Store
+**/.DS_Store
+Thumbs.db
+**/Thumbs.db
+
+# Editor directories and files
+.idea/
+**/.idea/
+.vscode/
+**/.vscode/
+*.swp
+**/*.swp
+*.swo
+**/*.swo
+
