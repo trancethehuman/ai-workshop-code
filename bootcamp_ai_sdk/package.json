@@ -1,0 +1,24 @@
+{
+  "name": "bootcamp_ai_sdk",
+  "version": "1.0.0",
+  "description": "Simple script to generate text using Vercel AI SDK",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "generate": "node index.js"
+  },
+  "keywords": [
+    "ai",
+    "sdk",
+    "openai",
+    "text-generation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ai-sdk/openai": "^1.2.1",
+    "ai": "^4.1.54",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
