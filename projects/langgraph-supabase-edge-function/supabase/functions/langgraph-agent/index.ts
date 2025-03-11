@@ -11,6 +11,7 @@ import { ChatOpenAI } from "npm:@langchain/openai@0.0.14";
 
 import { getApiKeys, MODEL_CONFIG, SEARCH_CONFIG } from "./config.ts";
 import { runAgent } from "./agent.ts";
+import { getConversationState, saveConversationState } from "./db.ts";
 
 // Log when the function is initialized
 console.log("LangGraph Agent function initialized!");
@@ -29,10 +30,17 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     // Parse the request body
-    const { query } = await req.json();
+    const { query, threadId } = await req.json();
 
     if (!query) {
       return new Response(JSON.stringify({ error: "Query is required" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    if (!threadId) {
+      return new Response(JSON.stringify({ error: "ThreadId is required" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
       });
@@ -51,11 +59,23 @@ const handler = async (req: Request): Promise<Response> => {
       modelName: MODEL_CONFIG.model,
     });
 
-    // Run the agent logic
-    const result = await runAgent(query, model, searchTool);
+    // Retrieve the conversation state from database
+    const state = await getConversationState(threadId);
+
+    // Run the agent logic with state from database
+    const result = await runAgent(query, model, searchTool, state);
+
+    // Save the updated state to database
+    await saveConversationState(threadId, result.state);
+
+    // Return agent's response, but don't include state in response anymore
+    const response = {
+      ...result.output,
+      threadId,
+    };
 
     // Return the agent's response
-    return new Response(JSON.stringify(result), {
+    return new Response(JSON.stringify(response), {
       headers: {
         "Content-Type": "application/json",
         Connection: "keep-alive",

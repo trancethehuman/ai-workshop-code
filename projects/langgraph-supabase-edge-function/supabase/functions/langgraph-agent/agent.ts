@@ -1,37 +1,52 @@
-// Agent logic for the LangGraph Agent
 import { TavilySearchResults } from "npm:@langchain/community@0.0.27/tools/tavily_search";
 import { ChatOpenAI } from "npm:@langchain/openai@0.0.14";
-import { HumanMessage } from "npm:@langchain/core@0.1.17/messages";
+import { HumanMessage, AIMessage } from "npm:@langchain/core@0.1.17/messages";
 import { getTextFromContent } from "./utils.ts";
+import { createPlanPrompt, createAnswerPrompt } from "./prompt.ts";
+
+// Define conversation state type
+interface ConversationState {
+  history: Array<{ role: string; content: string }>;
+}
 
 /**
  * Runs the agent with a query
  * @param query User query to process
  * @param model ChatOpenAI instance
  * @param searchTool TavilySearchResults instance
- * @returns Object containing final answer and steps taken
+ * @param state Previous conversation state (if any)
+ * @returns Object containing final answer, steps taken, and updated state
  */
 export async function runAgent(
   query: string,
   model: ChatOpenAI,
-  searchTool: TavilySearchResults
+  searchTool: TavilySearchResults,
+  state?: ConversationState
 ) {
   // Array to track agent steps for debugging/visibility
   const steps: string[] = [];
   let finalAnswer = "";
 
+  // Initialize conversation history from state or create new
+  const history = state?.history || [];
+
+  // Add the current query to the history
+  history.push({ role: "user", content: query });
+  steps.push("Received user query");
+
   // First, decide if we need to search or can answer directly
   steps.push("Planning approach to answer query");
-  const planPrompt = `You are a helpful, truthful AI assistant.
-Given the following query, decide if you need to search for information or if you can answer directly from your knowledge.
-If you need to search, respond with "SEARCH: <search query>", where <search query> is a good search query for the question.
-If you can answer directly, respond with "ANSWER: <your answer>".
-
-Query: "${query}"`;
+  const planPrompt = createPlanPrompt(query, history);
 
   const planResponse = await model.invoke([new HumanMessage(planPrompt)]);
   const planResponseText = getTextFromContent(planResponse.content);
   steps.push("Determined approach to answer");
+
+  // Add the plan response to history
+  history.push({
+    role: "assistant",
+    content: planResponseText,
+  });
 
   if (planResponseText.startsWith("SEARCH:")) {
     // Extract the search query
@@ -44,16 +59,17 @@ Query: "${query}"`;
     steps.push("Received search results");
 
     // Generate final answer using the search results
-    const answerResponse = await model.invoke([
-      new HumanMessage(`Based on the following search results about "${query}":
-${JSON.stringify(searchResults, null, 2)}
-
-Please provide a comprehensive, accurate answer to the question: "${query}"
-Include relevant information from the search results.`),
-    ]);
+    const answerPrompt = createAnswerPrompt(query, searchResults, history);
+    const answerResponse = await model.invoke([new HumanMessage(answerPrompt)]);
 
     finalAnswer = getTextFromContent(answerResponse.content);
     steps.push("Generated answer from search results");
+
+    // Add the final answer to history
+    history.push({
+      role: "assistant",
+      content: finalAnswer,
+    });
   } else {
     // Direct answer without search
     const responseText = getTextFromContent(planResponse.content);
@@ -63,8 +79,14 @@ Include relevant information from the search results.`),
     steps.push("Provided direct answer without search");
   }
 
+  // Return final answer, steps, and updated state
   return {
-    response: finalAnswer,
-    steps: steps,
+    output: {
+      response: finalAnswer,
+      steps: steps,
+    },
+    state: {
+      history: history,
+    },
   };
 }
