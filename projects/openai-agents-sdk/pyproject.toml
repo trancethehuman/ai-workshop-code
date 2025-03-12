@@ -1,0 +1,12 @@
+[project]
+name = "openai-agents-sdk"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dotenv>=0.9.9",
+    "openai-agents>=0.0.3",
+    "pydantic>=2.10.6",
+    "tavily-python>=0.5.1",
+]
