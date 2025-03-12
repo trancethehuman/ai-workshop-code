@@ -1,6 +1,6 @@
 import { TavilySearchResults } from "npm:@langchain/community@0.0.27/tools/tavily_search";
 import { ChatOpenAI } from "npm:@langchain/openai@0.0.14";
-import { HumanMessage, AIMessage } from "npm:@langchain/core@0.1.17/messages";
+import { HumanMessage } from "npm:@langchain/core@0.1.17/messages";
 import { getTextFromContent } from "./utils.ts";
 import { createPlanPrompt, createAnswerPrompt } from "./prompt.ts";
 

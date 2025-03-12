@@ -7,7 +7,8 @@
     "strict": true,
     "outDir": "dist",
     "skipLibCheck": true,
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   },
   "include": ["*.ts"],
   "exclude": ["node_modules"]
