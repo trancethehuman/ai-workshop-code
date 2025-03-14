@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List, Optional
 
-from models import Document
+from miscs.models import Document
 
 
 # Define our context class to track state between interactions

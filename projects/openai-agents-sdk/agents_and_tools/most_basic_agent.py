@@ -1,7 +1,12 @@
+import sys
 from agents import Agent, Runner
 from dotenv import load_dotenv
 from agents import set_default_openai_key
 import os
+from pathlib import Path
+
+# Add the project root to the Python path
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 load_dotenv()
 

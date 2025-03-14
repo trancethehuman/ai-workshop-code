@@ -5,12 +5,13 @@ from agents import (
     Runner,
 )
 
-from prompts import FOUNDER_AGENT_INSTRUCTIONS
-from tools.tavily_search import tavily_search
-from tools.retrieve_founder_articles import search_founder_articles
-from agent_context import AgentContext
-from agent_logger import AgentLifecycleLogger, AgentLogger, MinimalLogger
-from utils import setup_logging, load_api_keys
+from prompts.founder import FOUNDER_AGENT_INSTRUCTIONS
+from agent_tools.tavily_search import tavily_search
+from agent_tools.retrieve_founder_articles import search_founder_articles
+from miscs.agent_context import AgentContext
+from miscs.agent_logger import AgentLifecycleLogger, AgentLogger, MinimalLogger
+from miscs.utils import setup_logging, load_api_keys
+
 
 logger = setup_logging()
 load_api_keys()
@@ -25,7 +26,7 @@ founder_agent = Agent[AgentContext](
         search_founder_articles,
         tavily_search,
     ],
-    model="gpt-4o",
+    model="gpt-4o-mini",
 )
 
 
