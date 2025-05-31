@@ -1,0 +1,33 @@
+Job Finder Agent Setup Instructions
+===================================
+
+1. Create a file named ".env" in the project root directory
+
+2. Add the following content to the .env file:
+
+FIRECRAWL_API_KEY=
+OPENAI_API_KEY=
+
+# Optional: Enable verbose output (defaults to false)
+# VERBOSE=true
+
+3. Install dependencies:
+   uv pip install -r pyproject.toml
+   or
+   pip install openai-agents python-dotenv rich
+
+4. Run the agent:
+   python main.py
+   
+   # Or with verbose logging:
+   VERBOSE=true python main.py
+
+The agent will:
+- Ask you to describe the kind of job you're looking for
+- Scrape Hacker News jobs page
+- Find the most fitting job based on your description
+- Present the job details to you 
+
+Logging Modes:
+- Default (quiet): Shows only agent responses and final results
+- Verbose: Shows tool calls, connection status, and intermediate steps 
