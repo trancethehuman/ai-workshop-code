@@ -1,11 +1,12 @@
 from agents import Agent, Runner
 from agents.mcp import MCPServerSse
 from logging_utils import LoggingUtils
+from typing import List
 
 
 class JobFinderAgent:
-    def __init__(self, mcp_server: MCPServerSse, verbose: bool = False):
-        self.mcp_server = mcp_server
+    def __init__(self, mcp_servers: List[MCPServerSse], verbose: bool = False):
+        self.mcp_servers = mcp_servers
         self.verbose = verbose
         self.logger = LoggingUtils(verbose)
 
@@ -26,7 +27,7 @@ class JobFinderAgent:
             Do not stop until you've provided the user with the actual job's description from the job page
             Stick to 1 final job.
             """,
-            mcp_servers=[mcp_server],
+            mcp_servers=mcp_servers,
             model="gpt-4o",
         )
 
@@ -35,7 +36,7 @@ class JobFinderAgent:
         
         Please help them find a suitable job from Hacker News jobs page. Start by scraping https://news.ycombinator.com/jobs"""
 
-        self.logger.print_searching()
+        self.logger.print_searching("Job Finder Agent")
 
         result = Runner.run_streamed(
             starting_agent=self.agent, input=prompt, max_turns=10)

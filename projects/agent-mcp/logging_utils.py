@@ -11,38 +11,49 @@ class LoggingUtils:
         self.console = Console()
         self.verbose = verbose
 
-    def print_welcome(self):
+    def print_welcome(self, agent_name: str = None):
         self.console.print(Panel.fit(
-            "[bold cyan]🚀 Job Finder Agent[/bold cyan]\n"
-            "Powered by OpenAI Agents SDK & Firecrawl MCP",
+            "[bold cyan]🚀 Agent Playground[/bold cyan]\n"
+            "Powered by OpenAI Agents SDK & MCP Servers",
             border_style="cyan"
         ))
 
-        self.console.print(Panel.fit(
-            "[bold cyan]Job Finder Assistant[/bold cyan]\n"
-            "I'll help you find the perfect job from Hacker News!",
-            border_style="cyan"
-        ))
+        if agent_name:
+            self.console.print(Panel.fit(
+                f"[bold cyan]You're talking to: {agent_name}[/bold cyan]\n"
+                "I'm ready to help you with your request!",
+                border_style="cyan"
+            ))
+        else:
+            self.console.print(Panel.fit(
+                "[bold cyan]Agent Assistant[/bold cyan]\n"
+                "I'm ready to help you with your request!",
+                border_style="cyan"
+            ))
 
-    def print_searching(self):
-        self.console.print(
-            "\n[bold yellow]🔍 Searching for jobs that match your preferences...[/bold yellow]\n")
+    def print_searching(self, agent_name: str = None):
+        if agent_name:
+            self.console.print(
+                f"\n[bold yellow]🔍 {agent_name} is processing your request...[/bold yellow]\n")
+        else:
+            self.console.print(
+                "\n[bold yellow]🔍 Processing your request...[/bold yellow]\n")
 
     def print_complete(self):
         self.console.print("\n" + "─" * self.console.width)
         self.console.print(Panel.fit(
-            "[bold green]Job Search Complete![/bold green]",
+            "[bold green]Task Complete![/bold green]",
             border_style="green"
         ))
 
     def print_connecting(self):
         if self.verbose:
             self.console.print(
-                "\n[cyan]Connecting to Firecrawl MCP server...[/cyan]")
+                "\n[cyan]Connecting to MCP servers...[/cyan]")
 
     def print_connected(self):
         if self.verbose:
-            self.console.print("[green]✓ Connected to Firecrawl MCP[/green]\n")
+            self.console.print("[green]✓ Connected to MCP servers[/green]\n")
 
     async def stream_results(self, result):
         current_output = ""

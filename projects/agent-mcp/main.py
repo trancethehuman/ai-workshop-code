@@ -5,6 +5,7 @@ from rich.prompt import Prompt
 
 from agents import set_tracing_disabled
 from agent import JobFinderAgent
+from bootcamp_agent import BootcampAgent
 from mcp_config import MCPConfig
 from logging_utils import LoggingUtils
 
@@ -19,20 +20,26 @@ VERBOSE = os.getenv("VERBOSE", "false").lower() in ["true", "1", "yes"]
 
 async def main():
     logger = LoggingUtils(verbose=VERBOSE)
-    logger.print_welcome()
+    logger.print_welcome("Bootcamp Teaching Assistant")
 
     user_input = Prompt.ask(
-        "\n[bold green]Please describe what kind of job you're looking for[/bold green]")
+        "\n[bold green]What can I help you with today?[/bold green]")
 
     try:
         mcp_config = MCPConfig()
         logger.print_connecting()
 
-        async with await mcp_config.create_server() as server:
+        servers = await mcp_config.create_servers()
+        async with servers["firecrawl"] as firecrawl_server, servers["bootcamp"] as bootcamp_server:
             logger.print_connected()
 
-            job_finder = JobFinderAgent(mcp_server=server, verbose=VERBOSE)
-            await job_finder.find_job(user_input)
+            job_finder = JobFinderAgent(
+                mcp_servers=[firecrawl_server, bootcamp_server], verbose=VERBOSE)
+            bootcamp_agent = BootcampAgent(
+                mcp_servers=[firecrawl_server, bootcamp_server], verbose=VERBOSE)
+
+            # await job_finder.find_job(user_input)
+            await bootcamp_agent.find_answer(user_input)
 
     except ValueError as e:
         logger.console.print(f"[bold red]Error: {str(e)}[/bold red]")
