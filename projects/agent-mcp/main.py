@@ -22,9 +22,6 @@ async def main():
     logger = LoggingUtils(verbose=VERBOSE)
     logger.print_welcome("Bootcamp Teaching Assistant")
 
-    user_input = Prompt.ask(
-        "\n[bold green]What can I help you with today?[/bold green]")
-
     try:
         mcp_config = MCPConfig()
         logger.print_connecting()
@@ -38,8 +35,17 @@ async def main():
             bootcamp_agent = BootcampAgent(
                 mcp_servers=[firecrawl_server, bootcamp_server], verbose=VERBOSE)
 
-            # await job_finder.find_job(user_input)
-            await bootcamp_agent.find_answer(user_input)
+            while True:
+                user_input = Prompt.ask(
+                    "\n[bold green]What can I help you with today? (type 'quit' to exit)[/bold green]")
+
+                if user_input.lower().strip() in ['quit', 'exit', 'q']:
+                    logger.console.print(
+                        "\n[bold yellow]Thanks for using Agent Playground! Goodbye! 👋[/bold yellow]")
+                    break
+
+                # await job_finder.find_job(user_input)
+                await bootcamp_agent.find_answer(user_input)
 
     except ValueError as e:
         logger.console.print(f"[bold red]Error: {str(e)}[/bold red]")

@@ -13,6 +13,7 @@ class BootcampAgent:
         self.agent = Agent(
             name="Agent Engineering Bootcamp Teaching Assistant",
             instructions="""You are a helpful teaching assistant to an agent engineering bootcamp
+            If user asks about how to setup the bootcamp's MCP server, send them this link: https://agent-engineering-bootcamp-mcp.vercel.app
             """,
             mcp_servers=mcp_servers,
             model="gpt-4o",
