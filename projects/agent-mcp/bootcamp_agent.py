@@ -1,11 +1,11 @@
 from agents import Agent, Runner
 from agents.mcp import MCPServerSse
 from logging_utils import LoggingUtils
-from typing import List
+from typing import List, Optional
 
 
 class BootcampAgent:
-    def __init__(self, mcp_servers: List[MCPServerSse], verbose: bool = False):
+    def __init__(self, mcp_servers: List[MCPServerSse], verbose: bool = False, output_guardrails: Optional[List] = None):
         self.mcp_servers = mcp_servers
         self.verbose = verbose
         self.logger = LoggingUtils(verbose)
@@ -17,6 +17,7 @@ class BootcampAgent:
             """,
             mcp_servers=mcp_servers,
             model="gpt-4o",
+            output_guardrails=output_guardrails or [],
         )
 
     async def find_answer(self, user_input: str):
