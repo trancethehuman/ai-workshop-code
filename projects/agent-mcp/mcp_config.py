@@ -28,7 +28,7 @@ class MCPConfig:
             cache_tools_list=True,
             name="Firecrawl MCP",
             params=self.get_firecrawl_params(),
-            client_session_timeout_seconds=15
+            client_session_timeout_seconds=60
         )
 
         bootcamp_server = MCPServerSse(

@@ -31,7 +31,7 @@ class JobFinderAgent:
             model="gpt-4o",
         )
 
-    async def find_job(self, user_input: str):
+    async def find_answer(self, user_input: str):
         prompt = f"""The user is looking for: {user_input}
         
         Please help them find a suitable job from Hacker News jobs page. Start by scraping https://news.ycombinator.com/jobs"""
