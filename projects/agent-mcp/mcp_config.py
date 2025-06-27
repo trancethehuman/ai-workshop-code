@@ -1,5 +1,5 @@
 import os
-from agents.mcp import MCPServerSse
+from agents.mcp import MCPServerSse, MCPServerStdio
 from typing import Dict
 
 
@@ -9,6 +9,11 @@ class MCPConfig:
         if not self.firecrawl_api_key:
             raise ValueError(
                 "FIRECRAWL_API_KEY environment variable is not set")
+
+        self.tavily_api_key = os.getenv("TAVILY_API_KEY")
+        if not self.tavily_api_key:
+            raise ValueError(
+                "TAVILY_API_KEY environment variable is not set")
 
         self.firecrawl_url = f"https://mcp.firecrawl.dev/{self.firecrawl_api_key}/sse"
         self.bootcamp_url = "https://agent-engineering-bootcamp-mcp.vercel.app/sse"
@@ -23,7 +28,14 @@ class MCPConfig:
             "url": self.bootcamp_url,
         }
 
-    async def create_servers(self) -> Dict[str, MCPServerSse]:
+    def get_tavily_params(self):
+        return {
+            "command": "npx",
+            "args": ["-y", "tavily-mcp@0.2.4"],
+            "env": {"TAVILY_API_KEY": self.tavily_api_key}
+        }
+
+    async def create_servers(self):
         firecrawl_server = MCPServerSse(
             cache_tools_list=True,
             name="Firecrawl MCP",
@@ -38,7 +50,14 @@ class MCPConfig:
             client_session_timeout_seconds=15
         )
 
+        tavily_server = MCPServerStdio(
+            cache_tools_list=True,
+            name="Tavily MCP",
+            params=self.get_tavily_params(),
+        )
+
         return {
             "firecrawl": firecrawl_server,
-            "bootcamp": bootcamp_server
+            "bootcamp": bootcamp_server,
+            "tavily": tavily_server
         }
